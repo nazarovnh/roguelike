@@ -10,12 +10,21 @@ int to_pos(float x){
 class Controls {
     bool is_jump_ = false;
     bool is_exit_ = false;
+    bool step_right_ = false;
+    bool step_left_ = false;
+    //bool gameover_ = false;
 
 public:
     bool IsJump() const { return is_jump_; }
     bool IsExit() const { return is_exit_; }
+    bool StepRight() const { return step_right_; }
+    bool StepLeft() const { return step_left_; }
+    //bool IsGameover() const { return gameover_; }
+
     void Update() {
         is_jump_ = false; // Мы же уже объявили  ?
+        step_right_ = false;
+        step_left_ = false;
 
         while (terminal_has_input()) {
             auto key = terminal_read();
@@ -24,6 +33,12 @@ public:
             }
             if (key == TK_CLOSE) {
                 is_exit_ = true;
+            }
+            if (key == TK_LEFT){
+                step_right_ = true;
+            }
+            if (key == TK_RIGHT){
+                step_left_ = true;
             }
         }
     }
@@ -54,12 +69,19 @@ class Player{
         if(controls.IsJump() && !IsFlying()){
             speed_y = max_speed_y_;
         }
-        if( y_ >= ground_y_){
+        if(controls.StepRight()){
+            x_ -= 1;
+        }
+        if(controls.StepLeft()){
+            x_ += 1;
+        }
+        if(y_ >= ground_y_){
             y_ = ground_y_;
         }
         if(y_ <= ground_y_ - max_jump_height_){
             speed_y = 0;
         }
+
 
         y_ -= speed_y;
         y_ += gravity_;
@@ -98,10 +120,25 @@ class ObstaclesManager {
     int world_width;
     float speed_x;
     std::vector<Obstacles> obstacles{{35, ground_y}, {55, ground_y}, {70, ground_y}};
+
+    bool gameover = false;
+
 public:
 
     ObstaclesManager(const Player& player, float ground_y, int world_width, float speed_x)
     : player_(player), ground_y(ground_y), world_width(world_width), speed_x(speed_x) {}
+
+    void Gameover(){
+        while (!terminal_has_input()){
+            terminal_clear();
+            terminal_print(1, 1, "Game Over! Print anything");
+            terminal_refresh();
+        }
+        terminal_refresh();
+
+    }
+
+
     void Update(){
         // Почему указатель ?
         for (auto& o: obstacles) {
@@ -110,9 +147,8 @@ public:
                 o.x = world_width;
             }
 
-            if(player_.GetX() == to_pos(o.x) && player_.GetY() == to_pos(ground_y)){
-                terminal_print(1, 1, "BUM");
-                //game_over = true;
+            if(player_.GetX()-1 == to_pos(o.x) && player_.GetY() == to_pos(ground_y)){
+                Gameover();
             }
 
             o.Update();
@@ -153,25 +189,32 @@ int main()
 
     float speed_x = 0.25;
 
-    bool game_over = false;
+    bool gameover = false;
 
     // Ждем, пока пользователь не закроет окно
     while (true) {
         terminal_clear();
 
+//        if (gameover){
+//            terminal_print(1, 1, "Game Over!");
+////            terminal_refresh();
+//        }
+
         controls.Update();
+
+        om.Update();
+
 
         if (controls.IsExit()){
             break;
         }
 
-        om.Update();
-
-//        if(game_over){
-//            terminal_print(1,1, "Game over!");
+//        if (controls.IsGameover()){
+//            terminal_print(1, 1, "Game Over!");
 //            terminal_refresh();
-//            continue;
 //        }
+
+
 
         player.Update();
 
