@@ -1,29 +1,28 @@
+TARGET = nazarov_nariman_game
+
+ifeq ($(OS),Windows_NT)
+	FLAGS = -DCMAKE_SH="CMAKE_SH-NOTFOUND" -G "MinGW Makefiles"
+else
+	FLAGS = ""
+endif
+
 all: clean reload build exec
+
+run: reload build exec
 
 mkdir_build:
 	[ -d ./cmake-build-debug ] | mkdir -p cmake-build-debug
 
 build:
-	cd cmake-build-debug;make
+	cd cmake-build-debug;cmake --build . --target $(TARGET)
 
 exec:
-	./cmake-build-debug/nazarov_nariman_game
+	./cmake-build-debug/$(TARGET)
 
 clean:
 	rm -rf cmake-build-debug
 
 reload: mkdir_build
-	cd cmake-build-debug;cmake ..
-
-fast_build:
-	cd cmake-build-debug;make
-
-run: fast_build exec
-
-lint:
-	cd cmake-build-debug;make lint
-
-reformat:
-	find src/ -iname "*.cpp" | xargs clang-format -i --style=file
-	find include/ -iname "*.h" | xargs clang-format -i --style=file
-
+	cd cmake-build-debug;cmake $(FLAGS) ..
+install-linter:
+	pip install cpplint
