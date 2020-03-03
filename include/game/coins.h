@@ -5,6 +5,7 @@
 #pragma once
 
 class Coins {
+ private:
   char sybmol = '$';
 
  public:

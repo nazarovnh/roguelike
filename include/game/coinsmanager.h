@@ -10,14 +10,17 @@
 
 class CoinsManager {
   const Player &player_;
+  int bag_coins = '0';
   float ground_y = 0;
   int world_width;
   float speed_x;
-  std::vector<Coins> coins{{59, ground_y}, {65, ground_y}};
+  std::vector<Coins> coins{{65, ground_y}, {95, ground_y}};
 
  public:
   CoinsManager(const Player &player, float ground_y, int world_width, float speed_x)
       : player_(player), ground_y(ground_y), world_width(world_width), speed_x(speed_x) {}
 
   void Update();
+
+  void GetCoins();
 };

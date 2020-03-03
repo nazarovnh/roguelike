@@ -9,7 +9,6 @@
 
 void ObstaclesManager::Gameover() {
   while (!terminal_has_input()) {
-    terminal_clear();
     terminal_print(1, 1, "Game Over! Print anything");
     terminal_refresh();
   }

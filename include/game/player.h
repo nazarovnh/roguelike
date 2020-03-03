@@ -8,6 +8,7 @@
 
 class Player {
   float speed_y = 0;
+  char step_x = '0';
   char symbol = '@';
 
   const Controls &controls;

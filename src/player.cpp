@@ -26,10 +26,13 @@ void Player::Move() {
 
   y_ -= speed_y;
   y_ += gravity_;
+  step_x += '1';
 }
 
 void Player::Render() {
   terminal_put(x_, to_pos(y_), symbol);
+  terminal_put(73, 0, symbol);
+  terminal_put(75, 0, step_x);
 }
 
 bool Player::IsFlying() const {
