@@ -6,7 +6,7 @@
 #include <game/math-utils.h>
 
 void CoinsManager::GetCoins() {
-  bag_coins += '1';
+  bag_coins += 1;
 }
 
 void CoinsManager::Update() {

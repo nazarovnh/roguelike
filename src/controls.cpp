@@ -15,17 +15,23 @@ void Controls::Update() {
     auto key = terminal_read();
     if (key == TK_SPACE) {
       is_jump_ = true;
+      step_x += 1;
     }
     if (key == TK_CLOSE) {
       is_exit_ = true;
     }
     if (key == TK_LEFT) {
-      step_right_ = true;
-    }
-    if (key == TK_RIGHT) {
       step_left_ = true;
     }
+    if (key == TK_RIGHT) {
+      step_right_ = true;
+      step_x += 1;
+    }
   }
+  char str[20];
+  snprintf(str, sizeof(str), "%d", step_x);
+  terminal_put(73, 0, '@');
+  terminal_print(75, 0, str);
 }
 
 bool Controls::IsJump() const {

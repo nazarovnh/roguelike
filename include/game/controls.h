@@ -4,6 +4,7 @@
 #pragma once
 
 class Controls {
+  int step_x = 0;
   bool is_jump_ = false;
   bool is_exit_ = false;
   bool step_right_ = false;
