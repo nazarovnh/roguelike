@@ -1,35 +1,31 @@
-//
-// Created by nariman on 20.02.20.
-//
-
 #include <BearLibTerminal.h>
 #include <game/player.h>
 
-#include "game/math-utils.h"
+int ToPos(float x);
 
 void Player::Move() {
-  if (controls.IsJump() && !IsFlying()) {
-    speed_y = max_speed_y_;
+  if (controls_.IsJump() && !IsFlying()) {
+    speed_y_ = max_speed_y_;
   }
-  if (controls.StepRight() && !IsFlying()) {
+  if (controls_.StepRight() && !IsFlying()) {
     x_ += 1;
   }
-  if (controls.StepLeft() && !IsFlying()) {
+  if (controls_.StepLeft() && !IsFlying()) {
     x_ -= 1;
   }
   if (y_ >= ground_y_) {
     y_ = ground_y_;
   }
   if (y_ <= ground_y_ - max_jump_height_) {
-    speed_y = 0;
+    speed_y_ = 0;
   }
 
-  y_ -= speed_y;
+  y_ -= speed_y_;
   y_ += gravity_;
 }
 
 void Player::Render() {
-  terminal_put(x_, to_pos(y_), symbol);
+  terminal_put(x_, ToPos(y_), symbol_);
 }
 
 bool Player::IsFlying() const {
@@ -42,9 +38,9 @@ void Player::Update() {
 }
 
 int Player::GetX() const {
-  return to_pos(x_);
+  return ToPos(x_);
 }
 
 int Player::GetY() const {
-  return to_pos(y_);
+  return ToPos(y_);
 }

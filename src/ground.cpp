@@ -1,6 +1,3 @@
-//
-// Created by nariman on 20.02.20.
-//
 #include "game/ground.h"
 
 #include <BearLibTerminal.h>

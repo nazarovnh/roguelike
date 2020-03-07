@@ -1,6 +1,3 @@
-//
-// Created by nariman on 20.02.20.
-//
 #pragma once
 
 class Controls {
@@ -9,6 +6,7 @@ class Controls {
   bool is_exit_ = false;
   bool step_right_ = false;
   bool step_left_ = false;
+  bool is_submit_ = false;
 
  public:
   bool IsJump() const;
@@ -18,6 +16,8 @@ class Controls {
   bool StepRight() const;
 
   bool StepLeft() const;
+
+  bool IsSubmit() const;
 
   void Update();
 };

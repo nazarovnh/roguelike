@@ -1,18 +1,14 @@
-//
-// Created by nariman on 27.02.2020.
-//
-
 #pragma once
 
 class Coins {
  private:
-  char sybmol = '$';
+  char sybmol_ = '$';
 
  public:
-  float x;
-  float y;
+  float x_;
+  float y_;
 
-  Coins(float x, float y) : x(x), y(y) {}
+  Coins(float x, float y) : x_(x), y_(y) {}
 
   void Update();
 };

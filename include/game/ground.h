@@ -1,7 +1,3 @@
-//
-// Created by nariman on 20.02.20.
-//
-
 #pragma once
 
 class Ground {

@@ -1,16 +1,11 @@
-//
-// Created by nariman on 20.02.20.
-//
-
 #pragma once
 
 #include "game/controls.h"
-
 class Player {
-  float speed_y = 0;
-  char symbol = '@';
+  float speed_y_ = 0;
+  char symbol_ = '@';
 
-  const Controls &controls;
+  const Controls &controls_;
   int x_;
   float y_;
   float max_jump_height_;
@@ -27,13 +22,13 @@ class Player {
  public:
   Player(const Controls &controls, int x, float y, float max_jump_height, float max_speed_y, int ground_y,
          float gravity)
-      : controls(controls),
+      : controls_(controls),
         x_(x),
         y_(y),
         max_jump_height_(max_jump_height),
         max_speed_y_(max_speed_y),
         ground_y_(ground_y),
-        gravity_(gravity) {}  // Горячие клавиши
+        gravity_(gravity) {}
 
   void Update();
 

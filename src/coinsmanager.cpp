@@ -1,26 +1,24 @@
-//
-// Created by nariman on 27.02.2020.
-//
 #include <BearLibTerminal.h>
 #include <game/coinsmanager.h>
-#include <game/math-utils.h>
+
+int ToPos(float x);
 
 void CoinsManager::GetCoins() {
-  bag_coins += 1;
+  bag_coins_ += 1;
 }
 
 void CoinsManager::Update() {
   // Почему указатель ?
   int i = 0;
   terminal_put(73, 1, '$');
-  terminal_put(75, 1, bag_coins);
+  terminal_put(75, 1, bag_coins_);
   for (auto &a : coins) {
-    a.x -= speed_x;
-    if (a.x <= 0) {
-      a.x = world_width;
+    a.x_ -= speed_x_;
+    if (a.x_ <= 0) {
+      a.x_ = world_width_;
     }
 
-    if (player_.GetX() - 1 == to_pos(a.x) && player_.GetY() == to_pos(ground_y)) {
+    if (player_->GetX() - 1 == ToPos(a.x_) && player_->GetY() == ToPos(ground_y_)) {
       GetCoins();
       coins.erase(coins.begin() + i);
     }

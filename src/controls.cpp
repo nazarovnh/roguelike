@@ -1,7 +1,3 @@
-//
-// Created by nariman on 20.02.20.
-//
-
 #include <BearLibTerminal.h>
 #include <game/controls.h>
 
@@ -20,6 +16,9 @@ void Controls::Update() {
     if (key == TK_CLOSE) {
       is_exit_ = true;
     }
+    if (key == TK_ENTER) {
+      is_submit_ = true;
+    }
     if (key == TK_LEFT) {
       step_left_ = true;
     }
@@ -28,10 +27,6 @@ void Controls::Update() {
       step_x += 1;
     }
   }
-  char str[20];
-  snprintf(str, sizeof(str), "%d", step_x);
-  terminal_put(73, 0, '@');
-  terminal_print(75, 0, str);
 }
 
 bool Controls::IsJump() const {
@@ -48,4 +43,8 @@ bool Controls::StepRight() const {
 
 bool Controls::StepLeft() const {
   return step_left_;
+}
+
+bool Controls::IsSubmit() const {
+  return is_submit_;
 }
