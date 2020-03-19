@@ -1,4 +1,5 @@
 # - Try to find BearLibTerminal
+# - Try to find BearLibTerminal
 # http://foo.wyrd.name/ru:bearlibterminal
 # https://bitbucket.org/cfyzium/bearlibterminal
 # Once done this will define

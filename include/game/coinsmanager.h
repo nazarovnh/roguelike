@@ -7,14 +7,10 @@
 class CoinsManager {
   const Player *player_;
   int bag_coins_ = '0';
-  float ground_y_ = 0;
-  int world_width_;
-  float speed_x_;
-  std::vector<Coins> coins{{65, ground_y_}, {95, ground_y_}};
+  std::vector<Coins> coins{{65, 10}, {65, 11}};
 
  public:
-  CoinsManager(const Player *player, float ground_y, int world_width, float speed_x)
-      : player_(player), ground_y_(ground_y), world_width_(world_width), speed_x_(speed_x) {}
+  explicit CoinsManager(const Player *player) : player_(player) {}
 
   void Update();
 

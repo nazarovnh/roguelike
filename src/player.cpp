@@ -4,43 +4,37 @@
 int ToPos(float x);
 
 void Player::Move() {
-  if (controls_.IsJump() && !IsFlying()) {
-    speed_y_ = max_speed_y_;
-  }
-  if (controls_.StepRight() && !IsFlying()) {
+  if (controls_.StepRight()) {
     x_ += 1;
   }
-  if (controls_.StepLeft() && !IsFlying()) {
+  if (controls_.StepLeft()) {
     x_ -= 1;
   }
-  if (y_ >= ground_y_) {
-    y_ = ground_y_;
+  if (controls_.StepUp()) {
+    y_ -= 1;
   }
-  if (y_ <= ground_y_ - max_jump_height_) {
-    speed_y_ = 0;
+  if (controls_.StepDown()) {
+    y_ += 1;
   }
-
-  y_ -= speed_y_;
-  y_ += gravity_;
 }
 
 void Player::Render() {
-  terminal_put(x_, ToPos(y_), symbol_);
-}
-
-bool Player::IsFlying() const {
-  return y_ < ground_y_;
+  terminal_put(x_, y_, symbol_);
 }
 
 void Player::Update() {
   Move();
   Render();
+  char str[20];
+  snprintf(str, sizeof(str), "%d", controls_.step_x);
+  terminal_put(73, 0, '@');
+  terminal_print(75, 0, str);
 }
 
 int Player::GetX() const {
-  return ToPos(x_);
+  return x_;
 }
 
 int Player::GetY() const {
-  return ToPos(y_);
+  return y_;
 }

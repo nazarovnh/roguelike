@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(nazarov_nariman_game)
+project(roguelike)
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -16,7 +16,7 @@ file(GLOB_RECURSE HEADERS ${PROJECT_HEADERS_DIR}/*.h)
 file(GLOB_RECURSE SOURCES ${PROJECT_SOURCES_DIR}/*.cpp)
 
 
-add_executable(nazarov_nariman_game ${HEADERS} ${SOURCES})
+add_executable(roguelike ${HEADERS} ${SOURCES})
 
 include_directories(${PROJECT_HEADERS_DIR} )
 

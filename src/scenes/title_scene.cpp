@@ -3,9 +3,9 @@
 #include <BearLibTerminal.h>
 void TitleScene::OnCreate() {}
 void TitleScene::OnRender() {
-  terminal_print(1, 1, "Trex Game\nPress Enter to start");
+  terminal_print(1, 1, "Game\nPress Enter to start");
   if (controls_.IsSubmit()) {
-    ctx_->scene_ = "game";  // переходим на другую сцену
+    ctx_->scene_ = "game_scene_lv1";  // переходим на другую сцену
   }
 }
 void TitleScene::OnExit() {}

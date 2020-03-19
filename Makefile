@@ -1,4 +1,4 @@
-TARGET = nazarov_nariman_game
+TARGET = roguelike
 
 ifeq ($(OS),Windows_NT)
 	FLAGS = -DCMAKE_SH="CMAKE_SH-NOTFOUND" -G "MinGW Makefiles"

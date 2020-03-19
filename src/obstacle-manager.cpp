@@ -1,21 +1,22 @@
+
+#include <BearLibTerminal.h>
 #include <game/obstacle-manager.h>
 
 #include "game/math-utils.h"
 
 void ObstaclesManager::Update() {
   for (auto &o : obstacles_) {
-    o.x_ -= speed_x_;
-    if (o.x_ <= 0) {
-      o.x_ = world_width_;
+      if (player_->GetX() == o.x_ && player_->GetY() == o.y_) {
+      IsHit();
     }
-
-    if (player_->GetX() == ToPos(o.x_) && player_->GetY() == ToPos(ground_y_)) {
-      is_hit_ = true;
-    }
-
     o.Update();
   }
 }
-bool ObstaclesManager::IsHit() const {
-  return is_hit_;
+
+void ObstaclesManager::IsHit() {
+  int key = terminal_peek();
+  if (key == TK_UP) player_->y_++;
+  if (key == TK_DOWN) player_->y_--;
+  if (key == TK_LEFT) player_->x_++;
+  if (key == TK_RIGHT) player_->x_ -= 1;
 }

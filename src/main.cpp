@@ -2,7 +2,8 @@
 
 #include "game/controls.h"
 #include "game/scenes/game_over_scene.h"
-#include "game/scenes/game_scene.h"
+#include "game/scenes/game_scene_lv1.h"
+#include "game/scenes/game_scene_lv2.h"
 #include "game/scenes/title_scene.h"
 #include "lib/scene_manager.h"
 
@@ -18,7 +19,8 @@ int main() {
   // Регистрируем сцены в менеджер. Обратите внимание,
   // что деструкторы над сценами вызывать здесь не надо, так как изх вызовет менеджер.
   sm.Put("title", new TitleScene(&ctx, controls));
-  sm.Put("game", new GameScene(&ctx, controls));
+  sm.Put("game_scene_lv1", new GameSceneLv1(&ctx, controls));
+  sm.Put("game_scene_lv2", new GameSceneLv2(&ctx, controls));
   sm.Put("game_over", new GameOverScene(&ctx, controls));
 
   // Выставляем текущую сцену
