@@ -1,17 +1,24 @@
 #include <BearLibTerminal.h>
 
+#include "game/coins.h"
+#include "game/coinsmanager.h"
 #include "game/controls.h"
+#include "game/player.h"
 #include "game/scenes/game_over_scene.h"
 #include "game/scenes/game_scene_lv1.h"
 #include "game/scenes/game_scene_lv2.h"
+#include "game/scenes/result_scene.h"
 #include "game/scenes/title_scene.h"
 #include "lib/scene_manager.h"
+
 
 int main() {
   terminal_open();
   terminal_refresh();
 
   Controls controls;
+  Player* player;
+  CoinsManager cm{player};
 
   Context ctx{};  // создаем контекст на стеке в самом начале приложения
   SceneManager sm(ctx);  // создаем менеджер сцен на стеке
@@ -20,6 +27,7 @@ int main() {
   // что деструкторы над сценами вызывать здесь не надо, так как изх вызовет менеджер.
   sm.Put("title", new TitleScene(&ctx, controls));
   sm.Put("game_scene_lv1", new GameSceneLv1(&ctx, controls));
+  sm.Put("result", new ResultScene(&ctx, controls, cm));
   sm.Put("game_scene_lv2", new GameSceneLv2(&ctx, controls));
   sm.Put("game_over", new GameOverScene(&ctx, controls));
 

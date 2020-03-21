@@ -5,12 +5,12 @@
 #include "game/player.h"
 
 class CoinsManager {
-  const Player *player_;
-  int bag_coins_ = '0';
+  const Player* player_{};
   std::vector<Coins> coins{{65, 10}, {65, 11}};
 
  public:
-  explicit CoinsManager(const Player *player) : player_(player) {}
+  int bag_coins_ = 0;
+  explicit CoinsManager(const Player* player);
 
   void Update();
 

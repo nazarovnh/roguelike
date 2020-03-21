@@ -1,8 +1,5 @@
-
 #include <BearLibTerminal.h>
 #include <game/obstacle-manager.h>
-
-#include "game/math-utils.h"
 
 void ObstaclesManager::Update() {
   for (auto &o : obstacles_) {

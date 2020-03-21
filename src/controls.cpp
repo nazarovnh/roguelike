@@ -7,6 +7,7 @@ void Controls::Update() {
   step_left_ = false;
   step_up_ = false;
   step_down_ = false;
+  is_submit_ = false;
 
   while (terminal_has_input()) {
     auto key = terminal_read();
@@ -50,9 +51,11 @@ bool Controls::StepLeft() const {
 bool Controls::IsSubmit() const {
   return is_submit_;
 }
+
 bool Controls::StepUp() const {
   return step_up_;
 }
+
 bool Controls::StepDown() const {
   return step_down_;
 }

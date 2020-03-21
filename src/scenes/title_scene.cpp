@@ -1,6 +1,8 @@
 #include "game/scenes/title_scene.h"
 
 #include <BearLibTerminal.h>
+
+TitleScene::TitleScene(Context *ctx, const Controls &controls) : IScene(ctx), controls_(controls) {}
 void TitleScene::OnCreate() {}
 void TitleScene::OnRender() {
   terminal_print(1, 1, "Game\nPress Enter to start");
@@ -9,4 +11,3 @@ void TitleScene::OnRender() {
   }
 }
 void TitleScene::OnExit() {}
-TitleScene::TitleScene(Context *ctx, const Controls &controls) : IScene(ctx), controls_(controls) {}

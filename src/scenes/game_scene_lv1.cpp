@@ -11,17 +11,20 @@ void GameSceneLv1::OnRender() {
   player_->Update();
   om_->Update();
   cm_->Update();
+  dr_->Update();
   //    if (om_->IsHit()) {
   //      ctx_->scene_ = "game_over";  // переходим на другую сцену
   //      return;
   //    }
-  dr_->Update();
+
   if (dr_->LevelUp()) {
-    ctx_->scene_ = "game_scene_lv2";  // переходим на другую сцену
+    ctx_->scene_ = "result";  // переходим на другую сцену
     return;
   }
 }
 void GameSceneLv1::OnExit() {
   delete player_;
+  delete cm_;
+  delete dr_;
   delete om_;
 }

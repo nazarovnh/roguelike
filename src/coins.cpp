@@ -1,5 +1,4 @@
 #include "game/coins.h"
-
 #include <BearLibTerminal.h>
 
 int ToPos(float x);
