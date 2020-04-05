@@ -1,5 +1,5 @@
 #pragma once
-#include "lib/context.h"
+#include "lib/scenes/context.h"
 
 /**
  * Базовый интерфейс для всех сцен в игре.

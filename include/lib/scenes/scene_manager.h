@@ -3,8 +3,8 @@
 #include <memory>
 #include <string>
 
-#include "lib/context.h"
-#include "lib/i_scene.h"
+#include "lib/scenes/context.h"
+#include "lib/scenes/i_scene.h"
 
 /**
  * Менеджер сцен управляет жизненным циклом сцен:

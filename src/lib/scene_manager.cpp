@@ -1,4 +1,4 @@
-#include "lib/scene_manager.h"
+#include "lib/scenes/scene_manager.h"
 
 #include <iostream>
 #include <string>

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "game/controls.h"
-#include "lib/i_scene.h"
+#include "lib/scenes/i_scene.h"
 
 class GameOverScene : public IScene {
   const Controls& controls_;

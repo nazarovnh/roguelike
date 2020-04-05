@@ -1,8 +1,8 @@
 #pragma once
 
-#include "game/coinsmanager.h"
+#include "game/coins-manager.h"
 #include "game/controls.h"
-#include "lib/i_scene.h"
+#include "lib/scenes/i_scene.h"
 
 class ResultScene : public IScene {
   const Controls& controls_;

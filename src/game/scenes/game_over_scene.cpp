@@ -4,8 +4,8 @@
 void GameOverScene::OnCreate() {}
 void GameOverScene::OnRender() {
   terminal_print(1, 1, "Game Over\nScore is ?\nPress Enter to go to main menu");
-  if (controls_.IsSubmit()) {
-    ctx_->scene_ = "title";  // переходим на другую сцену
+  if (controls_.IsPressed(TK_ENTER)) {
+    ctx_->scene_ = "game";  // переходим на другую сцену
   }
 }
 void GameOverScene::OnExit() {}

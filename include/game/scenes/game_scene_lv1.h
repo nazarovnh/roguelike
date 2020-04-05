@@ -1,20 +1,16 @@
-#pragma once
 
-#include "game/coinsmanager.h"
-#include "game/door.h"
-#include "game/obstacle-manager.h"
-#include "game/player.h"
-#include "lib/i_scene.h"
+#include <game/controls.h>
+#include <lib/ecs/engine.h>
+#include <lib/scenes/i_scene.h>
 
 class GameSceneLv1 : public IScene {
-  const Controls& controls_;
-  Player* player_{};
-  ObstaclesManager* om_{};
-  CoinsManager* cm_{};
-  Door* dr_{};
+  const int width_ = 80;
+  const int ground_y_ = 15;
+  const Engine engine{};
+  const Controls& controls;
 
  public:
-  GameSceneLv1(Context* ctx, const Controls& controls);
+  GameSceneLv1(Context* const ctx, const Controls& controls);
 
   void OnCreate() override;
   void OnRender() override;

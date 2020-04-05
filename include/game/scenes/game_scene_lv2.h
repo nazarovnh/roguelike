@@ -1,10 +1,10 @@
 #pragma once
 
-#include "game/coinsmanager.h"
+#include "game/coins-manager.h"
+#include "game/door.h"
 #include "game/obstacle-manager.h"
 #include "game/player.h"
-#include "lib/i_scene.h"
-#include "game/door.h"
+#include "lib/scenes/i_scene.h"
 
 class GameSceneLv2 : public IScene {
   const Controls& controls_;
