@@ -50,7 +50,7 @@ void GameSceneLv1::OnCreate() {
   }
   {
     auto cactus = engine.GetEntityManager()->CreateEntity();
-    cactus->Add<TransformComponent>(Vec2(55, ground_y_ - 1));
+    cactus->Add<TransformComponent>(Vec2(10, 5));
     cactus->Add<TextureComponent>('#');
     // cactus->Add<MovementComponent>(Vec2(0.25f, 0.0f), LeftVec2);
     cactus->Add<ObstacleComponent>();
@@ -58,7 +58,7 @@ void GameSceneLv1::OnCreate() {
   }
   {
     auto cactus = engine.GetEntityManager()->CreateEntity();
-    cactus->Add<TransformComponent>(Vec2(70, ground_y_ - 1));
+    cactus->Add<TransformComponent>(Vec2(11, 5));
     cactus->Add<TextureComponent>('#');
     // cactus->Add<MovementComponent>(Vec2(0.25f, 0.0f), LeftVec2);
     cactus->Add<ObstacleComponent>();
