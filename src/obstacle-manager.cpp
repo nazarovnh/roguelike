@@ -19,3 +19,7 @@
 //
 //  }
 
+//  #include <game/obstacle-manager.h>
+//
+// void ObstaclesManager::IsHit() {}
+// void ObstaclesManager::Update() {}

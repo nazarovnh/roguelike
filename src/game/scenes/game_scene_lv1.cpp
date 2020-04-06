@@ -1,6 +1,8 @@
 #include "game/scenes/game_scene_lv1.h"
 
 #include <game/components/collider_component.h>
+#include <game/components/movement_component.h>
+#include <game/components/obstacle_control_system.h>
 #include <game/components/player_control_component.h>
 #include <game/components/step_left_component.h>
 #include <game/systems/collision_system.h>
@@ -35,15 +37,15 @@ void GameSceneLv1::OnCreate() {
     player->Add<TransformComponent>(Vec2(10, 1));
     player->Add<TextureComponent>('@');
     player->Add<ColliderComponent>(OnesVec2, ZeroVec2);
-    player->Add<PlayerControlComponent>(TK_LEFT);
-    player->Add<StepLeftComponent>(1);
+    player->Add<PlayerControlComponent>(TK_LEFT, TK_RIGHT, TK_UP, TK_DOWN);
+    player->Add<MovementComponent>(Vec2(1, 1));
   }
 
   {
     auto cactus = engine.GetEntityManager()->CreateEntity();
     cactus->Add<TextureComponent>('#');
     // cactus->Add<MovementComponent>(Vec2(0.25f, 0.0f), LeftVec2);
-    // cactus->Add<ObstacleComponent>();
+    cactus->Add<ObstaclesControlSystem>();
     cactus->Add<ColliderComponent>(OnesVec2, ZeroVec2);
   }
   {
@@ -51,7 +53,7 @@ void GameSceneLv1::OnCreate() {
     cactus->Add<TransformComponent>(Vec2(55, ground_y_ - 1));
     cactus->Add<TextureComponent>('#');
     // cactus->Add<MovementComponent>(Vec2(0.25f, 0.0f), LeftVec2);
-    // cactus->Add<ObstacleComponent>();
+    cactus->Add<ObstaclesControlSystem>();
     cactus->Add<ColliderComponent>(OnesVec2, ZeroVec2);
   }
   {
@@ -59,7 +61,7 @@ void GameSceneLv1::OnCreate() {
     cactus->Add<TransformComponent>(Vec2(70, ground_y_ - 1));
     cactus->Add<TextureComponent>('#');
     // cactus->Add<MovementComponent>(Vec2(0.25f, 0.0f), LeftVec2);
-    // cactus->Add<ObstacleComponent>();
+    cactus->Add<ObstaclesControlSystem>();
     cactus->Add<ColliderComponent>(OnesVec2, ZeroVec2);
   }
 
@@ -71,7 +73,7 @@ void GameSceneLv1::OnCreate() {
 
   auto sys = engine.GetSystemManager();
   sys->AddSystem<RenderingSystem>();
-  sys->AddSystem<MovementSystem>();
+  sys->AddSystem<MovementSystem>(controls);
   sys->AddSystem<ObstaclesControlSystem>(width_);
   sys->AddSystem<StepLeftControlSystem>(controls);
   sys->AddSystem<CollisionSystem>();

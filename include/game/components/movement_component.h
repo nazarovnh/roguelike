@@ -4,7 +4,6 @@
 
 class MovementComponent : public IComponent {
  public:
-  float step_;
-
-  explicit MovementComponent(float step) : step_(step) {}
+  Vec2 step_;
+  explicit MovementComponent(const Vec2& step) : step_(step) {}
 };

@@ -15,8 +15,11 @@ static bool Filter(const Entity& entity) {
 void StepLeftControlSystem::OnUpdateEntity(Entity* entity) const {
   auto pcc = entity->Get<PlayerControlComponent>();
   auto tc = entity->Get<TransformComponent>();
+
+
   if (controls_.IsPressed(pcc->left_button_)) {
-    tc->pos_.x -= 1;
+      //  tc->pos_ = tc->pos_ + tc->pos_
+      tc->pos_.x -= 1;
   }
 }
 void StepLeftControlSystem::OnUpdate() {
