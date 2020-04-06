@@ -29,7 +29,6 @@ void GameOverSystem::GameOver() {
 void GameOverSystem::OnUpdate() {
   for (auto& entity : GetEntityManager()) {
     if (Filter(entity) && IsGameOver(entity)) {
-      std::cout << "BUM" << std::endl;
       GameOver();
     }
   }

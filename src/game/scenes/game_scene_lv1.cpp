@@ -64,6 +64,14 @@ void GameSceneLv1::OnCreate() {
     cactus->Add<ObstacleComponent>();
     cactus->Add<ColliderComponent>(OnesVec2, ZeroVec2);
   }
+  {
+    auto coin = engine.GetEntityManager()->CreateEntity();
+      coin->Add<TransformComponent>(Vec2(13, 5));
+      coin->Add<TextureComponent>('$');
+    // cactus->Add<MovementComponent>(Vec2(0.25f, 0.0f), LeftVec2);
+      coin->Add<ObstacleComponent>();
+      coin->Add<ColliderComponent>(OnesVec2, ZeroVec2);
+  }
 
   //  for (int i = 0; i < width_; i++) {
   //    auto ground = engine.GetEntityManager()->CreateEntity();
