@@ -1,7 +1,7 @@
 #include "game/systems/game_over_system.h"
 
 #include <game/components/collider_component.h>
-#include <game/components/obstacle_control_system.h>
+#include <game/components/obstacle_component.h>
 #include <game/components/player_control_component.h>
 #include <lib/ecs/entity.h>
 #include <lib/ecs/entity_manager.h>
@@ -14,7 +14,7 @@ static bool IsGameOver(const Entity& entity) {
   auto cc = entity.Get<ColliderComponent>();
 
   for (const auto& collision : cc->GetCollisions()) {
-    if (collision->Contains<ObstaclesControlSystem>()) {
+    if (collision->Contains<ObstacleComponent>()) {
       return true;
     }
   }

@@ -1,6 +1,6 @@
 #include "game/systems/obstacles_control_system.h"
 
-#include "game/components/obstacle_control_system.h"
+#include "game/components/obstacle_component.h"
 #include "game/components/transform_component.h"
 #include "lib/ecs/entity_manager.h"
 

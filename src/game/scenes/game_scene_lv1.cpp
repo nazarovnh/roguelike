@@ -2,7 +2,7 @@
 
 #include <game/components/collider_component.h>
 #include <game/components/movement_component.h>
-#include <game/components/obstacle_control_system.h>
+#include <game/components/obstacle_component.h>
 #include <game/components/player_control_component.h>
 #include <game/components/step_left_component.h>
 #include <game/systems/collision_system.h>
@@ -45,7 +45,7 @@ void GameSceneLv1::OnCreate() {
     auto cactus = engine.GetEntityManager()->CreateEntity();
     cactus->Add<TextureComponent>('#');
     // cactus->Add<MovementComponent>(Vec2(0.25f, 0.0f), LeftVec2);
-    cactus->Add<ObstaclesControlSystem>();
+    cactus->Add<ObstacleComponent>();
     cactus->Add<ColliderComponent>(OnesVec2, ZeroVec2);
   }
   {
@@ -53,7 +53,7 @@ void GameSceneLv1::OnCreate() {
     cactus->Add<TransformComponent>(Vec2(55, ground_y_ - 1));
     cactus->Add<TextureComponent>('#');
     // cactus->Add<MovementComponent>(Vec2(0.25f, 0.0f), LeftVec2);
-    cactus->Add<ObstaclesControlSystem>();
+    cactus->Add<ObstacleComponent>();
     cactus->Add<ColliderComponent>(OnesVec2, ZeroVec2);
   }
   {
@@ -61,7 +61,7 @@ void GameSceneLv1::OnCreate() {
     cactus->Add<TransformComponent>(Vec2(70, ground_y_ - 1));
     cactus->Add<TextureComponent>('#');
     // cactus->Add<MovementComponent>(Vec2(0.25f, 0.0f), LeftVec2);
-    cactus->Add<ObstaclesControlSystem>();
+    cactus->Add<ObstacleComponent>();
     cactus->Add<ColliderComponent>(OnesVec2, ZeroVec2);
   }
 
