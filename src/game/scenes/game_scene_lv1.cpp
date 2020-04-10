@@ -4,11 +4,10 @@
 #include <game/components/movement_component.h>
 #include <game/components/obstacle_component.h>
 #include <game/components/player_control_component.h>
-#include <game/components/step_left_component.h>
+#include <game/components/scoreboard_component.h>
 #include <game/systems/collision_system.h>
 #include <game/systems/game_over_system.h>
-#include <game/systems/step_left_control_system.h>
-
+#include <game/systems/scoreboard_system.h>
 #include "game/components/texture_component.h"
 #include "game/components/transform_component.h"
 #include "game/systems/movement_system.h"
@@ -42,12 +41,27 @@ void GameSceneLv1::OnCreate() {
   }
 
   {
+    auto scoreboard_steps = engine.GetEntityManager()->CreateEntity();
+    scoreboard_steps->Add<TransformComponent>(Vec2(73, 0));
+    scoreboard_steps->Add<TextureComponent>('@');
+    scoreboard_steps->Add<ScoreBoardComponent>(0);
+  }
+
+  {
+    auto scoreboard_coins = engine.GetEntityManager()->CreateEntity();
+    scoreboard_coins->Add<TransformComponent>(Vec2(73, 2));
+    scoreboard_coins->Add<TextureComponent>('$');
+    scoreboard_coins->Add<ScoreBoardComponent>(0);
+  }
+
+  {
     auto cactus = engine.GetEntityManager()->CreateEntity();
     cactus->Add<TextureComponent>('#');
     // cactus->Add<MovementComponent>(Vec2(0.25f, 0.0f), LeftVec2);
     cactus->Add<ObstacleComponent>();
     cactus->Add<ColliderComponent>(OnesVec2, ZeroVec2);
   }
+
   {
     auto cactus = engine.GetEntityManager()->CreateEntity();
     cactus->Add<TransformComponent>(Vec2(10, 5));
@@ -56,6 +70,7 @@ void GameSceneLv1::OnCreate() {
     cactus->Add<ObstacleComponent>();
     cactus->Add<ColliderComponent>(OnesVec2, ZeroVec2);
   }
+
   {
     auto cactus = engine.GetEntityManager()->CreateEntity();
     cactus->Add<TransformComponent>(Vec2(11, 5));
@@ -66,11 +81,11 @@ void GameSceneLv1::OnCreate() {
   }
   {
     auto coin = engine.GetEntityManager()->CreateEntity();
-      coin->Add<TransformComponent>(Vec2(13, 5));
-      coin->Add<TextureComponent>('$');
+    coin->Add<TransformComponent>(Vec2(13, 5));
+    coin->Add<TextureComponent>('$');
     // cactus->Add<MovementComponent>(Vec2(0.25f, 0.0f), LeftVec2);
-      coin->Add<ObstacleComponent>();
-      coin->Add<ColliderComponent>(OnesVec2, ZeroVec2);
+    coin->Add<ObstacleComponent>();
+    coin->Add<ColliderComponent>(OnesVec2, ZeroVec2);
   }
 
   //  for (int i = 0; i < width_; i++) {
@@ -83,8 +98,8 @@ void GameSceneLv1::OnCreate() {
   sys->AddSystem<RenderingSystem>();
   sys->AddSystem<MovementSystem>(controls);
   sys->AddSystem<ObstaclesControlSystem>(width_);
-  sys->AddSystem<StepLeftControlSystem>(controls);
   sys->AddSystem<CollisionSystem>();
+  sys->AddSystem<ScoreBoardSystem>();
   sys->AddSystem<GameOverSystem>(ctx_);
 }
 void GameSceneLv1::OnRender() {
