@@ -30,16 +30,14 @@ static bool IsCoin(const Entity& entity) {
   }
 }
 
-void ScoreBoardSystem::AddCoin(Entity& entity) {
+void ScoreBoardSystem::AddCoin() {
   scoreboardcomponent_->score_coins_++;
-  entity;
 }
 
 void ScoreBoardSystem::OnUpdate() {
   for (auto& entity : GetEntityManager()) {
     if (Filter(entity) && IsCoin(entity)) {
-      std::cout << "BUM2" << std::endl;
-      AddCoin(entity);
+      AddCoin();
     }
   }
 }

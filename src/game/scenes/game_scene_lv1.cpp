@@ -98,13 +98,13 @@ void GameSceneLv1::OnCreate() {
   //    ground->Add<TransformComponent>(Vec2(i, ground_y_));
   //    ground->Add<TextureComponent>('^');
   //  }
-  {
-    auto scoreboard_coins = engine.GetEntityManager()->CreateEntity();
-    scoreboard_coins->Add<TransformComponent>(Vec2(73, 2));
-    scoreboard_coins->Add<TextureComponent>('$');
-    scoreboard_coins->Add<ScoreBoardComponent>();
-    scoreboard_coins->Add<ColliderComponent>(OnesVec2, ZeroVec2);
-  }
+
+  auto scoreboard_coins = engine.GetEntityManager()->CreateEntity();
+  scoreboard_coins->Add<TransformComponent>(Vec2(73, 2));
+  scoreboard_coins->Add<TextureComponent>('$');
+  scoreboard_coins->Add<ScoreBoardComponent>();
+  scoreboard_coins->Add<ColliderComponent>(OnesVec2, ZeroVec2);
+
   auto sys = engine.GetSystemManager();
   sys->AddSystem<RenderingSystem>();
   sys->AddSystem<MovementSystem>(controls);
