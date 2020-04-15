@@ -1,20 +1,45 @@
 #include "game/systems/scoreboard_system.h"
+
+#include <game/components/collider_component.h>
+#include <game/components/movement_component.h>
+#include <game/components/obstacle_component.h>
+#include <game/components/player_control_component.h>
+#include <game/components/scoreboard_component.h>
+#include <game/components/texture_component.h>
 #include <game/components/transform_component.h>
+
+#include <iostream>
+
 #include "lib/ecs/entity_manager.h"
 
-
-ScoreBoardSystem::ScoreBoardSystem(EntityManager* entity_manager, SystemManager* system_manager)
-    : ISystem(entity_manager, system_manager) {}
+ScoreBoardSystem::ScoreBoardSystem(EntityManager* entity_manager, SystemManager* system_manager,
+                                   ScoreBoardComponent* scoreboardcomponent)
+    : ISystem(entity_manager, system_manager), scoreboardcomponent_(scoreboardcomponent) {}
 
 bool ScoreBoardSystem::Filter(const Entity& entity) const {
-  return entity.Contains<ScoreBoardSystem()>() && entity.Contains<TransformComponent>();
+  return entity.Contains<ColliderComponent>();
+}
+
+static bool IsCoin(const Entity& entity) {
+  auto cc = entity.Get<ColliderComponent>();
+  // TODO(Nariman): Сложно уже пошли ошибки с проектирование!
+  for (const auto& collision : cc->GetCollisions()) {
+    if (collision->Get<TextureComponent>()->symbol_ == '$') {
+      return true;
+    }
+  }
+}
+
+void ScoreBoardSystem::AddCoin(Entity& entity) {
+  scoreboardcomponent_->score_coins_++;
+  entity;
 }
 
 void ScoreBoardSystem::OnUpdate() {
   for (auto& entity : GetEntityManager()) {
-    if (!Filter(entity)) {
-      // TODO(Nariman): Does the system need? Yes - expeption. No - delete cpp
-      // exit(-1);
+    if (Filter(entity) && IsCoin(entity)) {
+      std::cout << "BUM2" << std::endl;
+      AddCoin(entity);
     }
   }
 }

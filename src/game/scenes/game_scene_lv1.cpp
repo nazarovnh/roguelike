@@ -8,6 +8,7 @@
 #include <game/systems/collision_system.h>
 #include <game/systems/game_over_system.h>
 #include <game/systems/scoreboard_system.h>
+
 #include "game/components/texture_component.h"
 #include "game/components/transform_component.h"
 #include "game/systems/movement_system.h"
@@ -36,56 +37,60 @@ void GameSceneLv1::OnCreate() {
     player->Add<TransformComponent>(Vec2(10, 1));
     player->Add<TextureComponent>('@');
     player->Add<ColliderComponent>(OnesVec2, ZeroVec2);
+    //  player->Add<ScoreBoardComponent>();
     player->Add<PlayerControlComponent>(TK_LEFT, TK_RIGHT, TK_UP, TK_DOWN);
     player->Add<MovementComponent>(Vec2(1, 1));
   }
 
+  //  {
+  //    auto scoreboard_steps = engine.GetEntityManager()->CreateEntity();
+  //    scoreboard_steps->Add<TransformComponent>(Vec2(73, 0));
+  //    scoreboard_steps->Add<TextureComponent>('@');
+  //  }
+  //
+  //  {
+  //    auto scoreboard_coins = engine.GetEntityManager()->CreateEntity();
+  //    scoreboard_coins->Add<TransformComponent>(Vec2(73, 2));
+  //    scoreboard_coins->Add<TextureComponent>('$');
+  //    scoreboard_coins->Add<ScoreBoardComponent>();
+  //  }
+
   {
-    auto scoreboard_steps = engine.GetEntityManager()->CreateEntity();
-    scoreboard_steps->Add<TransformComponent>(Vec2(73, 0));
-    scoreboard_steps->Add<TextureComponent>('@');
-    scoreboard_steps->Add<ScoreBoardComponent>(0);
+    auto wall = engine.GetEntityManager()->CreateEntity();
+    wall->Add<TransformComponent>(Vec2(12, 5));
+    wall->Add<TextureComponent>('#');
+    wall->Add<ObstacleComponent>();
+    wall->Add<ColliderComponent>(OnesVec2, ZeroVec2);
   }
 
   {
-    auto scoreboard_coins = engine.GetEntityManager()->CreateEntity();
-    scoreboard_coins->Add<TransformComponent>(Vec2(73, 2));
-    scoreboard_coins->Add<TextureComponent>('$');
-    scoreboard_coins->Add<ScoreBoardComponent>(0);
+    auto wall = engine.GetEntityManager()->CreateEntity();
+    wall->Add<TransformComponent>(Vec2(10, 5));
+    wall->Add<TextureComponent>('#');
+    wall->Add<ObstacleComponent>();
+    wall->Add<ColliderComponent>(OnesVec2, ZeroVec2);
   }
 
   {
-    auto cactus = engine.GetEntityManager()->CreateEntity();
-    cactus->Add<TextureComponent>('#');
-    // cactus->Add<MovementComponent>(Vec2(0.25f, 0.0f), LeftVec2);
-    cactus->Add<ObstacleComponent>();
-    cactus->Add<ColliderComponent>(OnesVec2, ZeroVec2);
-  }
-
-  {
-    auto cactus = engine.GetEntityManager()->CreateEntity();
-    cactus->Add<TransformComponent>(Vec2(10, 5));
-    cactus->Add<TextureComponent>('#');
-    // cactus->Add<MovementComponent>(Vec2(0.25f, 0.0f), LeftVec2);
-    cactus->Add<ObstacleComponent>();
-    cactus->Add<ColliderComponent>(OnesVec2, ZeroVec2);
-  }
-
-  {
-    auto cactus = engine.GetEntityManager()->CreateEntity();
-    cactus->Add<TransformComponent>(Vec2(11, 5));
-    cactus->Add<TextureComponent>('#');
-    // cactus->Add<MovementComponent>(Vec2(0.25f, 0.0f), LeftVec2);
-    cactus->Add<ObstacleComponent>();
-    cactus->Add<ColliderComponent>(OnesVec2, ZeroVec2);
+    auto wall = engine.GetEntityManager()->CreateEntity();
+    wall->Add<TransformComponent>(Vec2(11, 5));
+    wall->Add<TextureComponent>('#');
+    wall->Add<ObstacleComponent>();
+    wall->Add<ColliderComponent>(OnesVec2, ZeroVec2);
   }
   {
     auto coin = engine.GetEntityManager()->CreateEntity();
-    coin->Add<TransformComponent>(Vec2(13, 5));
+    coin->Add<TransformComponent>(Vec2(14, 5));
     coin->Add<TextureComponent>('$');
-    // cactus->Add<MovementComponent>(Vec2(0.25f, 0.0f), LeftVec2);
     coin->Add<ObstacleComponent>();
     coin->Add<ColliderComponent>(OnesVec2, ZeroVec2);
+  }
+  {
+    auto door = engine.GetEntityManager()->CreateEntity();
+    door->Add<TransformComponent>(Vec2(79, 24));
+    door->Add<TextureComponent>('>');
+    door->Add<ObstacleComponent>();
+    door->Add<ColliderComponent>(OnesVec2, ZeroVec2);
   }
 
   //  for (int i = 0; i < width_; i++) {
@@ -93,13 +98,19 @@ void GameSceneLv1::OnCreate() {
   //    ground->Add<TransformComponent>(Vec2(i, ground_y_));
   //    ground->Add<TextureComponent>('^');
   //  }
-
+  {
+    auto scoreboard_coins = engine.GetEntityManager()->CreateEntity();
+    scoreboard_coins->Add<TransformComponent>(Vec2(73, 2));
+    scoreboard_coins->Add<TextureComponent>('$');
+    scoreboard_coins->Add<ScoreBoardComponent>();
+    scoreboard_coins->Add<ColliderComponent>(OnesVec2, ZeroVec2);
+  }
   auto sys = engine.GetSystemManager();
   sys->AddSystem<RenderingSystem>();
   sys->AddSystem<MovementSystem>(controls);
   sys->AddSystem<ObstaclesControlSystem>(width_);
   sys->AddSystem<CollisionSystem>();
-  sys->AddSystem<ScoreBoardSystem>();
+  sys->AddSystem<ScoreBoardSystem>(scoreboard_coins->Get<ScoreBoardComponent>());
   sys->AddSystem<GameOverSystem>(ctx_);
 }
 void GameSceneLv1::OnRender() {

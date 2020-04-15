@@ -16,7 +16,7 @@ void RenderingSystem::OnUpdate() {
         auto transform = e.Get<TransformComponent>();
 
         char str[20];
-        snprintf(str, sizeof(str), "%d", scoreboard->score_);
+        snprintf(str, sizeof(str), "%d", scoreboard->score_coins_);
         terminal_print(ToPos(transform->pos_.x + 2), ToPos(transform->pos_.y), str);
       }
       auto texture = e.Get<TextureComponent>();

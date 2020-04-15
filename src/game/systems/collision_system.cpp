@@ -14,6 +14,14 @@ static bool Filter(const Entity& entity) {
   return entity.Contains<ColliderComponent>() && entity.Contains<TransformComponent>();
 }
 
+static bool CollisionWall(const Entity* entity) {
+  return entity->Get<TextureComponent>()->symbol_ == '#';
+}
+
+static bool CollisionCoin(const Entity* entity) {
+  return entity->Get<TextureComponent>()->symbol_ == '$';
+}
+
 static void Collide(Entity* entity_1, Entity* entity_2) {
   if (entity_1->GetId() == entity_2->GetId()) {
     return;
@@ -23,13 +31,13 @@ static void Collide(Entity* entity_1, Entity* entity_2) {
 
   auto tc1 = entity_1->Get<TransformComponent>();
   auto tc2 = entity_2->Get<TransformComponent>();
-
-  auto tx1 = entity_1->Get<TextureComponent>();
-  auto tx2 = entity_2->Get<TextureComponent>();
-
-  if (ToPos(tc1->pos_.x) == ToPos(tc2->pos_.x) && ToPos(tc1->pos_.y) == ToPos(tc2->pos_.y) &&
-      (tx1->symbol_ == '#' || tx2->symbol_ == '#')) {
-    cc2->Collide(entity_1);
+  // TODO(Nariman): как мы знаем что первая сущность это стена
+  if (ToPos(tc1->pos_.x) == ToPos(tc2->pos_.x) && ToPos(tc1->pos_.y) == ToPos(tc2->pos_.y)) {
+    if (CollisionWall(entity_1)) {
+      cc2->Collide(entity_1);
+    } else if (CollisionCoin(entity_1)) {
+      cc2->Collide(entity_1);
+    }
   }
 }
 
