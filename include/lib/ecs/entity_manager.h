@@ -1,8 +1,12 @@
 #pragma once
 
+#include <game/components/price_component.h>
+#include <game/components/stamp_remove_component.h>
+
 #include <iostream>
 #include <map>
 #include <memory>
+
 #include "lib/ecs/entity.h"
 
 /**
@@ -40,6 +44,25 @@ class EntityManager {
     return entities_.at(id).get();
   }
 
+  void Check() {
+    for (auto& entity : entities_) {
+      if (entity.second->Contains<PriceComponent>()) {
+        std::cout << "BUM" << std::endl;
+        if (entity.second->Contains<StampRemoveComponent>()) {
+          std::cout << "BUM" << std::endl;
+          DeleteEntity(entity.first);
+        }
+      }
+    }
+  }
+  void Have() {
+    for (auto& entity : entities_) {
+      if (entity.second->Contains<StampRemoveComponent>()) {
+        std::cout << "BUM" << std::endl;
+      }
+    }
+  }
+
   // Entity* Get(std::string name) const {
   // }
 
@@ -74,6 +97,7 @@ class EntityManager {
     bool operator==(const Iterator& rhs) {
       return iterator_ == rhs.iterator_;
     }
+
     bool operator!=(const Iterator& rhs) {
       return iterator_ != rhs.iterator_;
     }

@@ -7,6 +7,8 @@
 #include <lib/ecs/entity.h>
 #include <lib/ecs/entity_manager.h>
 
+#include "iostream"
+
 CollisionSystem::CollisionSystem(EntityManager* const entity_manager, SystemManager* const system_manager)
     : ISystem(entity_manager, system_manager) {}
 
@@ -19,7 +21,10 @@ static bool CollisionWall(const Entity* entity) {
 }
 
 static bool CollisionCoin(const Entity* entity) {
-  return entity->Get<TextureComponent>()->symbol_ == '$';
+  return entity->Contains<PriceComponent>();
+}
+static bool CollisionDoor(const Entity* entity) {
+  return entity->Get<TextureComponent>()->symbol_ == '>';
 }
 
 static void Collide(Entity* entity_1, Entity* entity_2) {
@@ -28,7 +33,6 @@ static void Collide(Entity* entity_1, Entity* entity_2) {
   }
 
   auto cc2 = entity_2->Get<ColliderComponent>();
-
   auto tc1 = entity_1->Get<TransformComponent>();
   auto tc2 = entity_2->Get<TransformComponent>();
   // TODO(Nariman): как мы знаем что первая сущность это стена
@@ -36,6 +40,8 @@ static void Collide(Entity* entity_1, Entity* entity_2) {
     if (CollisionWall(entity_1)) {
       cc2->Collide(entity_1);
     } else if (CollisionCoin(entity_1)) {
+      cc2->Collide(entity_1);
+    } else if (CollisionDoor(entity_1)) {
       cc2->Collide(entity_1);
     }
   }

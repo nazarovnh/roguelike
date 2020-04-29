@@ -12,17 +12,12 @@
 
 #include "lib/ecs/entity_manager.h"
 
-ScoreBoardSystem::ScoreBoardSystem(EntityManager* entity_manager, SystemManager* system_manager,
-                                   ScoreBoardComponent* scoreboardcomponent)
-    : ISystem(entity_manager, system_manager), scoreboardcomponent_(scoreboardcomponent) {}
-
 bool ScoreBoardSystem::Filter(const Entity& entity) const {
   return entity.Contains<ColliderComponent>();
 }
 
-static bool IsCoin(const Entity& entity) {
-  auto cc = entity.Get<ColliderComponent>();
-  // TODO(Nariman): Сложно уже пошли ошибки с проектирование!
+static bool IsCoin(Entity* entity) {
+  auto cc = entity->Get<ColliderComponent>();
   for (const auto& collision : cc->GetCollisions()) {
     if (collision->Get<TextureComponent>()->symbol_ == '$') {
       return true;
@@ -30,14 +25,14 @@ static bool IsCoin(const Entity& entity) {
   }
 }
 
-void ScoreBoardSystem::AddCoin() {
-  scoreboardcomponent_->score_coins_++;
-}
+void ScoreBoardSystem::AddCoin() {}
 
 void ScoreBoardSystem::OnUpdate() {
-  for (auto& entity : GetEntityManager()) {
-    if (Filter(entity) && IsCoin(entity)) {
-      AddCoin();
-    }
-  }
+  //  for (auto& entity : GetEntityManager()) {
+  //    if (Filter(entity) && IsCoin(&entity)) {
+  //      AddCoin();
+  //    }
+  //  }
 }
+ScoreBoardSystem::ScoreBoardSystem(EntityManager* entity_manager, SystemManager* system_manager)
+    : ISystem(entity_manager, system_manager) {}

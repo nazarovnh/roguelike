@@ -5,12 +5,10 @@
 #include <lib/ecs/system.h>
 
 class ScoreBoardSystem : public ISystem {
-  ScoreBoardComponent* scoreboardcomponent_;
   bool Filter(const Entity& entity) const;
 
  public:
-  ScoreBoardSystem(EntityManager* entity_manager, SystemManager* system_manager,
-                   ScoreBoardComponent* scoreboardcomponent);
+  ScoreBoardSystem(EntityManager* entity_manager, SystemManager* system_manager);
 
   void AddCoin();
 

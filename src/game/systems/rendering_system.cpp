@@ -16,8 +16,12 @@ void RenderingSystem::OnUpdate() {
         auto transform = e.Get<TransformComponent>();
 
         char str[20];
+        //  char str_2[20];
+
+        //  snprintf(str, sizeof(str_2), "%d", scoreboard->score_steps_);
         snprintf(str, sizeof(str), "%d", scoreboard->score_coins_);
-        terminal_print(ToPos(transform->pos_.x + 2), ToPos(transform->pos_.y), str);
+        //  terminal_print(ToPos(transform->pos_.x-20), ToPos(transform->pos_.y), str_2);
+        terminal_print(ToPos(transform->pos_.x+2), ToPos(transform->pos_.y), str);
       }
       auto texture = e.Get<TextureComponent>();
       auto transform = e.Get<TransformComponent>();

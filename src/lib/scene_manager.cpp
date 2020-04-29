@@ -28,4 +28,3 @@ void SceneManager::Put(const std::string& name, IScene* const scene) {
   scenes_[name] = std::unique_ptr<IScene>(scene);
 }
 SceneManager::SceneManager(const Context& ctx) : ctx_(ctx) {}
-

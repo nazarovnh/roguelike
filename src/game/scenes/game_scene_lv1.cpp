@@ -7,6 +7,8 @@
 #include <game/components/scoreboard_component.h>
 #include <game/systems/collision_system.h>
 #include <game/systems/game_over_system.h>
+#include <game/systems/level_up_system.h>
+#include <game/systems/pick_up_coin.h>
 #include <game/systems/scoreboard_system.h>
 
 #include "game/components/texture_component.h"
@@ -83,8 +85,10 @@ void GameSceneLv1::OnCreate() {
     coin->Add<TransformComponent>(Vec2(14, 5));
     coin->Add<TextureComponent>('$');
     coin->Add<ObstacleComponent>();
+    coin->Add<PriceComponent>();
     coin->Add<ColliderComponent>(OnesVec2, ZeroVec2);
   }
+
   {
     auto door = engine.GetEntityManager()->CreateEntity();
     door->Add<TransformComponent>(Vec2(79, 24));
@@ -98,21 +102,29 @@ void GameSceneLv1::OnCreate() {
   //    ground->Add<TransformComponent>(Vec2(i, ground_y_));
   //    ground->Add<TextureComponent>('^');
   //  }
+  {
+    auto scoreboard_coins = engine.GetEntityManager()->CreateEntity();
+    scoreboard_coins->Add<TransformComponent>(Vec2(73, 2));
+    scoreboard_coins->Add<TextureComponent>('$');
+    scoreboard_coins->Add<ScoreBoardComponent>();
+    scoreboard_coins->Add<ColliderComponent>(OnesVec2, ZeroVec2);
+  }
 
-  auto scoreboard_coins = engine.GetEntityManager()->CreateEntity();
-  scoreboard_coins->Add<TransformComponent>(Vec2(73, 2));
-  scoreboard_coins->Add<TextureComponent>('$');
-  scoreboard_coins->Add<ScoreBoardComponent>();
-  scoreboard_coins->Add<ColliderComponent>(OnesVec2, ZeroVec2);
-
-  auto sys = engine.GetSystemManager();
-  sys->AddSystem<RenderingSystem>();
-  sys->AddSystem<MovementSystem>(controls);
-  sys->AddSystem<ObstaclesControlSystem>(width_);
-  sys->AddSystem<CollisionSystem>();
-  sys->AddSystem<ScoreBoardSystem>(scoreboard_coins->Get<ScoreBoardComponent>());
-  sys->AddSystem<GameOverSystem>(ctx_);
+  {
+    auto sys = engine.GetSystemManager();
+    sys->AddSystem<RenderingSystem>();
+    sys->AddSystem<MovementSystem>(controls);
+    sys->AddSystem<ObstaclesControlSystem>(width_);
+    sys->AddSystem<CollisionSystem>();
+    sys->AddSystem<PickUpCoinSystem>();
+    sys->AddSystem<ScoreBoardSystem>();
+    sys->AddSystem<LevelUpSystem>(ctx_);
+    sys->AddSystem<GameOverSystem>(ctx_);
+  }
 }
+
+void GameSceneLv1::Check() {}
+
 void GameSceneLv1::OnRender() {
   engine.OnUpdate();
 }

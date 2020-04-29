@@ -14,5 +14,6 @@ class GameSceneLv1 : public IScene {
 
   void OnCreate() override;
   void OnRender() override;
+  void Check();
   void OnExit() override;
 };
