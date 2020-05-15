@@ -17,11 +17,12 @@ static bool Filter(const Entity& entity) {
 static bool IsLevelUp(const Entity& entity) {
   auto cc = entity.Get<ColliderComponent>();
   for (const auto& collision : cc->GetCollisions()) {
-    if (collision->Get<TextureComponent>()->symbol_ == '>') {
-      return true;
+    if (collision->Contains<TextureComponent>()) {
+      if (collision->Get<TextureComponent>()->symbol_ == '>') {
+        return true;
+      }
     }
   }
-
   return false;
 }
 

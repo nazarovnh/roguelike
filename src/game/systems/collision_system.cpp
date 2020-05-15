@@ -39,9 +39,9 @@ static void Collide(Entity* entity_1, Entity* entity_2) {
   if (ToPos(tc1->pos_.x) == ToPos(tc2->pos_.x) && ToPos(tc1->pos_.y) == ToPos(tc2->pos_.y)) {
     if (CollisionWall(entity_1)) {
       cc2->Collide(entity_1);
-    } else if (CollisionCoin(entity_1)) {
-      cc2->Collide(entity_1);
     } else if (CollisionDoor(entity_1)) {
+      cc2->Collide(entity_1);
+    } else if (CollisionCoin(entity_1)) {
       cc2->Collide(entity_1);
     }
   }

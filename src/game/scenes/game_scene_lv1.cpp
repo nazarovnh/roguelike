@@ -10,6 +10,7 @@
 #include <game/systems/level_up_system.h>
 #include <game/systems/pick_up_coin.h>
 #include <game/systems/scoreboard_system.h>
+#include <game/systems/steps_count_system.h>
 
 #include "game/components/texture_component.h"
 #include "game/components/transform_component.h"
@@ -80,9 +81,27 @@ void GameSceneLv1::OnCreate() {
     wall->Add<ObstacleComponent>();
     wall->Add<ColliderComponent>(OnesVec2, ZeroVec2);
   }
+
   {
     auto coin = engine.GetEntityManager()->CreateEntity();
     coin->Add<TransformComponent>(Vec2(14, 5));
+    coin->Add<TextureComponent>('$');
+    coin->Add<ObstacleComponent>();
+    coin->Add<PriceComponent>();
+    coin->Add<ColliderComponent>(OnesVec2, ZeroVec2);
+  }
+
+  {
+    auto coin = engine.GetEntityManager()->CreateEntity();
+    coin->Add<TransformComponent>(Vec2(14, 7));
+    coin->Add<TextureComponent>('$');
+    coin->Add<ObstacleComponent>();
+    coin->Add<PriceComponent>();
+    coin->Add<ColliderComponent>(OnesVec2, ZeroVec2);
+  }
+  {
+    auto coin = engine.GetEntityManager()->CreateEntity();
+    coin->Add<TransformComponent>(Vec2(14, 9));
     coin->Add<TextureComponent>('$');
     coin->Add<ObstacleComponent>();
     coin->Add<PriceComponent>();
@@ -109,11 +128,11 @@ void GameSceneLv1::OnCreate() {
     scoreboard_coins->Add<ScoreBoardComponent>();
     scoreboard_coins->Add<ColliderComponent>(OnesVec2, ZeroVec2);
   }
-
   {
     auto sys = engine.GetSystemManager();
     sys->AddSystem<RenderingSystem>();
     sys->AddSystem<MovementSystem>(controls);
+    sys->AddSystem<StepsCountSystem>(controls, ctx_);
     sys->AddSystem<ObstaclesControlSystem>(width_);
     sys->AddSystem<CollisionSystem>();
     sys->AddSystem<PickUpCoinSystem>();
@@ -123,10 +142,9 @@ void GameSceneLv1::OnCreate() {
   }
 }
 
-void GameSceneLv1::Check() {}
-
 void GameSceneLv1::OnRender() {
   engine.OnUpdate();
+  engine.GetEntityManager()->Check();
 }
 void GameSceneLv1::OnExit() {
   engine.GetEntityManager()->DeleteAll();

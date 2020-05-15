@@ -34,6 +34,14 @@ void GameSceneLv2::OnCreate() {
     sys->AddSystem<ScoreBoardSystem>();
     sys->AddSystem<GameOverSystem>(ctx_);
   }
+
+  {
+    auto door = engine.GetEntityManager()->CreateEntity();
+    door->Add<TransformComponent>(Vec2(79, 24));
+    door->Add<TextureComponent>('>');
+    door->Add<ObstacleComponent>();
+    door->Add<ColliderComponent>(OnesVec2, ZeroVec2);
+  }
 }
 
 void GameSceneLv2::Check() {

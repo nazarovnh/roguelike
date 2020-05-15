@@ -15,4 +15,5 @@
 class Context {
  public:
   std::string scene_ = "";
+  int score_step = 0;
 };

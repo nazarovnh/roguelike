@@ -16,28 +16,21 @@ void MovementSystem::OnUpdateEntity(Entity* entity) const {
   auto pcc = entity->Get<PlayerControlComponent>();
   auto tc = entity->Get<TransformComponent>();
   auto mc = entity->Get<MovementComponent>();
-  //  auto sc = entity->Get<ScoreBoardComponent>(); Не компонента а сущность
 
-  // TODO(Nariman): нормально ли то что movement знает о scoreboard и постоянная строчка sc->score ++
   if (controls_.IsPressed(pcc->left_button_)) {
     tc->pos_.x -= mc->step_.x;
-    //  sc->score_++;
   } else if (controls_.IsPressed(pcc->right_button_)) {
     tc->pos_.x += mc->step_.x;
-    //  sc->score_++;
   } else if (controls_.IsPressed(pcc->up_button_)) {
     tc->pos_.y -= mc->step_.y;
-    //  sc->score_++;
   } else if (controls_.IsPressed(pcc->down_button_)) {
     tc->pos_.y += mc->step_.y;
-    //  sc->score_++;
   }
 }
 
 void MovementSystem::OnUpdate() {
   for (auto& entity : GetEntityManager()) {
     if (Filter(entity)) {
-      // std::cout << "BUM" << std::endl;
       OnUpdateEntity(&entity);
     }
   }

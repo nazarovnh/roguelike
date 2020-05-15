@@ -39,7 +39,7 @@ class IScene {
    * В следующий раз эта функция запустится при очередном переходе на эту сцену.
    */
   // virtual void UpLevel() = 0;
-  //  virtual void Check() = 0;
+  // virtual void Check() = 0;
   /**
    * Переход на новый уровень
    */

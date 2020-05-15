@@ -34,9 +34,9 @@ class ColliderComponent : public IComponent {
     collisions_.insert(entity);
   }
 
-  //  bool Have(Entity* entity,IComponent& component) {
-  //    return collisions_.count(entity) != 0 && entity->Contains<component>();
-  //  }
+  bool Have(Entity* entity) {
+    return collisions_.count(entity) != 0;
+  }
 
   void Clear() {
     collisions_.clear();

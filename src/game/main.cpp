@@ -21,13 +21,13 @@ int main() {
   // что деструкторы над сценами вызывать здесь не надо, так как изх вызовет менеджер.
   sm.Put("title", new TitleScene(&ctx, controls));
   sm.Put("game_lv1", new GameSceneLv1(&ctx, controls));
-    sm.Put("game_lv2", new GameSceneLv2(&ctx, controls));
+  sm.Put("game_lv2", new GameSceneLv2(&ctx, controls));
   sm.Put("result_scene", new ResultScene(&ctx, controls));
   sm.Put("game_over", new GameOverScene(&ctx, controls));
 
   // Выставляем текущую сцену
   ctx.scene_ = "title";
-
+  ctx.score_step = 0;
   // Ждем, пока пользователь не закроет окно
   while (true) {
     controls.OnUpdate();

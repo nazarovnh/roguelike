@@ -4,6 +4,8 @@
 #include <lib/ecs/system.h>
 
 class PickUpCoinSystem : public ISystem {
+  //  EntityManager *entityManager{};
+
  public:
   PickUpCoinSystem(EntityManager *entityManager, SystemManager *systemManager)
       : ISystem(entityManager, systemManager) {}
@@ -11,7 +13,6 @@ class PickUpCoinSystem : public ISystem {
   static void AddCoin(Entity *entity_1, Entity *entity_2);
 
   bool IsCoin(const Entity &entity);
-
 
  protected:
   void OnUpdate() override;
