@@ -3,11 +3,12 @@
 #include <game/components/obstacle_component.h>
 #include <game/components/player_control_component.h>
 #include <game/components/scoreboard_component.h>
-#include <game/scenes/game_scene_lv2.h>
+#include <game/scenes/game_lv2_scene.h>
 #include <game/systems/collision_system.h>
 #include <game/systems/game_over_system.h>
-#include <game/systems/pick_up_coin.h>
-#include <game/systems/scoreboard_system.h>
+#include <game/systems/level_up_system.h>
+#include <game/systems/pick_up_coin_system.h>
+#include <game/systems/steps_count_system.h>
 
 #include "game/components/texture_component.h"
 #include "game/components/transform_component.h"
@@ -28,11 +29,20 @@ void GameSceneLv2::OnCreate() {
     auto sys = engine.GetSystemManager();
     sys->AddSystem<RenderingSystem>();
     sys->AddSystem<MovementSystem>(controls);
+    sys->AddSystem<StepsCountSystem>(controls, ctx_);
     sys->AddSystem<ObstaclesControlSystem>(width_);
     sys->AddSystem<CollisionSystem>();
-    sys->AddSystem<PickUpCoinSystem>();
-    sys->AddSystem<ScoreBoardSystem>();
+    sys->AddSystem<PickUpCoinSystem>(controls, ctx_);
+    sys->AddSystem<LevelUpSystem>(ctx_);
     sys->AddSystem<GameOverSystem>(ctx_);
+  }
+
+  {
+    auto scoreboard = engine.GetEntityManager()->CreateEntity();
+    scoreboard->Add<TransformComponent>(Vec2(73, 2));
+    scoreboard->Add<TextureComponent>('$');
+    scoreboard->Add<ScoreBoardComponent>();
+    scoreboard->Add<ColliderComponent>(OnesVec2, ZeroVec2);
   }
 
   {
@@ -44,12 +54,9 @@ void GameSceneLv2::OnCreate() {
   }
 }
 
-void GameSceneLv2::Check() {
-  engine.GetEntityManager()->Check();
-}
-
 void GameSceneLv2::OnRender() {
   engine.OnUpdate();
+  engine.GetEntityManager()->Check();
 }
 void GameSceneLv2::OnExit() {
   engine.GetEntityManager()->DeleteAll();

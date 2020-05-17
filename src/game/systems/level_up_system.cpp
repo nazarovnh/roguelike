@@ -7,6 +7,11 @@
 #include <lib/ecs/entity_manager.h>
 
 void LevelUpSystem::LevelUp() {
+  if (ctx_->scene_ == "game_lv1") {
+    ctx_->prev_scene_ = "game_lv1";
+  } else if (ctx_->scene_ == "game_lv2") {
+    ctx_->prev_scene_ = "game_lv2";
+  }
   ctx_->scene_ = "result_scene";
 }
 

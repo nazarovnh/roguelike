@@ -1,13 +1,9 @@
-
 #include "game/systems/steps_count_system.h"
 
 #include <game/components/player_control_component.h>
 #include <game/components/scoreboard_component.h>
 
-#include <utility>
-
 #include "game/components/movement_component.h"
-#include "game/components/transform_component.h"
 #include "game/systems/movement_system.h"
 #include "lib/ecs/entity_manager.h"
 
@@ -29,7 +25,7 @@ bool StepsCountSystem::InMoveEntity(Entity* entity) const {
 void StepsCountSystem::AddStep(Entity* entity) {
   auto sc = entity->Get<ScoreBoardComponent>();
   sc->score_steps_++;
-  ctx_->score_step++;
+  ctx_->score_steps++;
 }
 
 void StepsCountSystem::OnUpdate() {

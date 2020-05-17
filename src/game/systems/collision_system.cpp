@@ -3,11 +3,9 @@
 #include <game/components/collider_component.h>
 #include <game/components/texture_component.h>
 #include <game/components/transform_component.h>
-#include <game/math-utils.h>
 #include <lib/ecs/entity.h>
 #include <lib/ecs/entity_manager.h>
-
-#include "iostream"
+#include <lib/math/math-utils.h>
 
 CollisionSystem::CollisionSystem(EntityManager* const entity_manager, SystemManager* const system_manager)
     : ISystem(entity_manager, system_manager) {}
@@ -35,7 +33,6 @@ static void Collide(Entity* entity_1, Entity* entity_2) {
   auto cc2 = entity_2->Get<ColliderComponent>();
   auto tc1 = entity_1->Get<TransformComponent>();
   auto tc2 = entity_2->Get<TransformComponent>();
-  // TODO(Nariman): как мы знаем что первая сущность это стена
   if (ToPos(tc1->pos_.x) == ToPos(tc2->pos_.x) && ToPos(tc1->pos_.y) == ToPos(tc2->pos_.y)) {
     if (CollisionWall(entity_1)) {
       cc2->Collide(entity_1);

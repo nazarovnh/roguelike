@@ -1,7 +1,7 @@
 #include <BearLibTerminal.h>
 #include <game/controls.h>
-#include <game/scenes/game_scene_lv1.h>
-#include <game/scenes/game_scene_lv2.h>
+#include <game/scenes/game_lv1_scene.h>
+#include <game/scenes/game_lv2_scene.h>
 #include <game/scenes/result_scene.h>
 
 #include "game/scenes/game_over_scene.h"
@@ -27,7 +27,6 @@ int main() {
 
   // Выставляем текущую сцену
   ctx.scene_ = "title";
-  ctx.score_step = 0;
   // Ждем, пока пользователь не закроет окно
   while (true) {
     controls.OnUpdate();

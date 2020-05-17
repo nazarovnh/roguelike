@@ -1,4 +1,4 @@
-#include "game/scenes/game_scene_lv1.h"
+#include "game/scenes/game_lv1_scene.h"
 
 #include <game/components/collider_component.h>
 #include <game/components/movement_component.h>
@@ -8,8 +8,7 @@
 #include <game/systems/collision_system.h>
 #include <game/systems/game_over_system.h>
 #include <game/systems/level_up_system.h>
-#include <game/systems/pick_up_coin.h>
-#include <game/systems/scoreboard_system.h>
+#include <game/systems/pick_up_coin_system.h>
 #include <game/systems/steps_count_system.h>
 
 #include "game/components/texture_component.h"
@@ -44,19 +43,6 @@ void GameSceneLv1::OnCreate() {
     player->Add<PlayerControlComponent>(TK_LEFT, TK_RIGHT, TK_UP, TK_DOWN);
     player->Add<MovementComponent>(Vec2(1, 1));
   }
-
-  //  {
-  //    auto scoreboard_steps = engine.GetEntityManager()->CreateEntity();
-  //    scoreboard_steps->Add<TransformComponent>(Vec2(73, 0));
-  //    scoreboard_steps->Add<TextureComponent>('@');
-  //  }
-  //
-  //  {
-  //    auto scoreboard_coins = engine.GetEntityManager()->CreateEntity();
-  //    scoreboard_coins->Add<TransformComponent>(Vec2(73, 2));
-  //    scoreboard_coins->Add<TextureComponent>('$');
-  //    scoreboard_coins->Add<ScoreBoardComponent>();
-  //  }
 
   {
     auto wall = engine.GetEntityManager()->CreateEntity();
@@ -116,11 +102,6 @@ void GameSceneLv1::OnCreate() {
     door->Add<ColliderComponent>(OnesVec2, ZeroVec2);
   }
 
-  //  for (int i = 0; i < width_; i++) {
-  //    auto ground = engine.GetEntityManager()->CreateEntity();
-  //    ground->Add<TransformComponent>(Vec2(i, ground_y_));
-  //    ground->Add<TextureComponent>('^');
-  //  }
   {
     auto scoreboard_coins = engine.GetEntityManager()->CreateEntity();
     scoreboard_coins->Add<TransformComponent>(Vec2(73, 2));
@@ -135,8 +116,7 @@ void GameSceneLv1::OnCreate() {
     sys->AddSystem<StepsCountSystem>(controls, ctx_);
     sys->AddSystem<ObstaclesControlSystem>(width_);
     sys->AddSystem<CollisionSystem>();
-    sys->AddSystem<PickUpCoinSystem>();
-    sys->AddSystem<ScoreBoardSystem>();
+    sys->AddSystem<PickUpCoinSystem>(controls, ctx_);
     sys->AddSystem<LevelUpSystem>(ctx_);
     sys->AddSystem<GameOverSystem>(ctx_);
   }

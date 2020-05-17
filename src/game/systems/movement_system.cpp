@@ -1,7 +1,6 @@
 #include "game/systems/movement_system.h"
 
 #include <game/components/player_control_component.h>
-#include <game/components/scoreboard_component.h>
 
 #include "game/components/movement_component.h"
 #include "game/components/transform_component.h"

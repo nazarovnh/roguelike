@@ -1,11 +1,8 @@
 #pragma once
 
+#include <game/controls.h>
 #include <lib/ecs/engine.h>
 
-#include "game/coins-manager.h"
-#include "game/door.h"
-#include "game/obstacle-manager.h"
-#include "game/player.h"
 #include "lib/scenes/i_scene.h"
 
 class GameSceneLv2 : public IScene {
@@ -19,6 +16,5 @@ class GameSceneLv2 : public IScene {
 
   void OnCreate() override;
   void OnRender() override;
-  void Check();
   void OnExit() override;
 };

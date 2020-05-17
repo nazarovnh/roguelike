@@ -5,8 +5,8 @@
 
 #include "game/components/texture_component.h"
 #include "game/components/transform_component.h"
-#include "game/math-utils.h"
 #include "lib/ecs/entity_manager.h"
+#include "lib/math/math-utils.h"
 
 void RenderingSystem::OnUpdate() {
   for (auto& e : GetEntityManager()) {
