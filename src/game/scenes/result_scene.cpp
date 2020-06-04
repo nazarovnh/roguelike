@@ -36,6 +36,6 @@ void ResultScene::OnRender() {
   terminal_refresh();
 }
 void ResultScene::OnExit() {
-  ctx_->score_steps = 0;
-  ctx_->score_coins = 0;
+  //  ctx_->score_steps = 0;
+  //  ctx_->score_coins = 0;
 }

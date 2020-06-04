@@ -26,7 +26,6 @@ void RenderingSystem::OnUpdate() {
       }
       auto texture = e.Get<TextureComponent>();
       auto transform = e.Get<TransformComponent>();
-
       terminal_put(ToPos(transform->pos_.x), ToPos(transform->pos_.y), texture->symbol_);
     }
   }

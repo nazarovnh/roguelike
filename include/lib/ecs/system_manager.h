@@ -1,12 +1,13 @@
 #pragma once
 
+#include <game/systems/creating_entity_system.h>
+
 #include <map>
 #include <memory>
 #include <typeindex>
 
 #include "lib/ecs/entity_manager.h"
 #include "lib/ecs/system.h"
-
 /**
  * Менеджер систем. Как и менеджер сущностей, выступает как
  * хранищиле систем. Помимо базовых действий с системами (добавление, удаление),
@@ -19,6 +20,7 @@
  * - системы отрабатывают (Update)
  * - системы выполняют то, что им необходимо после завершения цикла (PostUpdate)
  */
+
 class SystemManager {
  private:
   std::map<std::type_index, std::unique_ptr<ISystem>> systems;
@@ -42,6 +44,26 @@ class SystemManager {
   SystemManager *DeleteAll() {
     systems.clear();
     return this;
+  }
+
+  template<typename System>
+  SystemManager *Get() {
+    systems.erase(typeid(System));
+    return this;
+  }
+
+  //  template<typename System>
+  //  System *GetSystem() {
+  //    auto a = systems.find(typeid(System))->first;
+  //    auto b = *(systems.find(a)->second);
+  //    return static_cast<CreatingEntitySystem *>(&b);
+  //  }
+
+  template<typename System>
+  System *GetSystem() {
+    auto a = systems.find(typeid(System))->first;
+    auto b = *(systems.find(a)->second);
+    return static_cast<System *>(&b);
   }
 
   template<typename System>
