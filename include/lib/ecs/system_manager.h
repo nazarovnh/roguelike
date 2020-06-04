@@ -61,9 +61,10 @@ class SystemManager {
 
   template<typename System>
   System *GetSystem() {
-    auto a = systems.find(typeid(System))->first;
-    auto b = *(systems.find(a)->second);
-    return static_cast<System *>(&b);
+    //    auto a = systems.find(typeid(System))->first;
+    //    auto b = *(systems.find(a)->second);
+    //    return static_cast<System *>(&b);
+    return static_cast<System *>(systems.at(typeid(System)).get());
   }
 
   template<typename System>
