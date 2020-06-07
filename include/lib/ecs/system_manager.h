@@ -47,23 +47,7 @@ class SystemManager {
   }
 
   template<typename System>
-  SystemManager *Get() {
-    systems.erase(typeid(System));
-    return this;
-  }
-
-  //  template<typename System>
-  //  System *GetSystem() {
-  //    auto a = systems.find(typeid(System))->first;
-  //    auto b = *(systems.find(a)->second);
-  //    return static_cast<CreatingEntitySystem *>(&b);
-  //  }
-
-  template<typename System>
-  System *GetSystem() {
-    //    auto a = systems.find(typeid(System))->first;
-    //    auto b = *(systems.find(a)->second);
-    //    return static_cast<System *>(&b);
+  System *Get() {
     return static_cast<System *>(systems.at(typeid(System)).get());
   }
 

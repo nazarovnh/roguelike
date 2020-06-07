@@ -7,6 +7,7 @@ class LevelUpSystem : public ISystem {
   Context* ctx_;
 
   void LevelUp();
+  void LevelDown();
 
  protected:
   void OnUpdate() override;

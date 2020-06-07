@@ -16,7 +16,7 @@ file(GLOB_RECURSE HEADERS ${PROJECT_HEADERS_DIR}/*.h)
 file(GLOB_RECURSE SOURCES ${PROJECT_SOURCES_DIR}/*.cpp)
 
 
-add_executable(roguelike ${HEADERS} ${SOURCES} src/game/systems/reading_file_levels_system.cpp include/game/systems/reading_file_levels_system.h src/game/systems/creating_entity_system.cpp include/game/systems/creating_entity_system.h)
+add_executable(roguelike ${HEADERS} ${SOURCES} src/game/systems/reading_file_levels_system.cpp include/game/systems/reading_file_levels_system.h src/game/systems/creating_entity_system.cpp include/game/systems/creating_entity_system.h src/game/scenes/game_lv3_scene.cpp include/game/scenes/game_lv3_scene.h)
 
 include_directories(${PROJECT_HEADERS_DIR} )
 

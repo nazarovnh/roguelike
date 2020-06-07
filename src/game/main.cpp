@@ -2,6 +2,7 @@
 #include <game/controls.h>
 #include <game/scenes/game_lv1_scene.h>
 #include <game/scenes/game_lv2_scene.h>
+#include <game/scenes/game_lv3_scene.h>
 #include <game/scenes/result_scene.h>
 
 #include "game/scenes/game_over_scene.h"
@@ -22,6 +23,7 @@ int main() {
   sm.Put("title", new TitleScene(&ctx, controls));
   sm.Put("game_lv1", new GameSceneLv1(&ctx, controls));
   sm.Put("game_lv2", new GameSceneLv2(&ctx, controls));
+  sm.Put("game_lv3", new GameSceneLv3(&ctx, controls));
   sm.Put("result_scene", new ResultScene(&ctx, controls));
   sm.Put("game_over", new GameOverScene(&ctx, controls));
 

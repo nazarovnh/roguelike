@@ -10,27 +10,22 @@
 #include "vector"
 
 void ReadingFileLevelsSystem::OnUpdate() {
-  std::ifstream LevelFile("levels/level_1");
+  std::ifstream LevelFile(path_file_.find(ctx_->scene_)->second);
 
-  int c = 1;
+  int c = 0;
   if (!LevelFile.is_open()) {
     std::cout << "cant open file" << std::endl;
     exit(-1);
   }
   while (std::getline(LevelFile, s)) {
     c++;
-    //  std::vector<char> row;
     for (int i = 0; i < s.size(); i++) {
-      //      row.push_back(s[i]);
-      creatingEntitySystem_->CreatingEntity(s[i], 0, 0);
-      //  creatingEntitySystem_->CreatingEntity(s[i], i, i);
+      creatingEntitySystem_->CreatingEntity(s[i], i, c);
     }
-    // levelfile.push_back(row);
   }
   LevelFile.close();
 }
 
-void ReadingFileLevelsSystem::ReadFile() {}
-std::vector<std::vector<char>> ReadingFileLevelsSystem::GetLevel() {
-  //  return levelfile;
+void ReadingFileLevelsSystem::OnPostUpdate() {
+  creatingEntitySystem_->GetSystemManagerPtr()->Delete<ReadingFileLevelsSystem>();
 }

@@ -11,8 +11,20 @@ void LevelUpSystem::LevelUp() {
     ctx_->prev_scene_ = "game_lv1";
   } else if (ctx_->scene_ == "game_lv2") {
     ctx_->prev_scene_ = "game_lv2";
+  } else if (ctx_->scene_ == "game_lv3") {
+    ctx_->prev_scene_ = "game_lv2";
   }
   ctx_->scene_ = "result_scene";
+}
+
+void LevelUpSystem::LevelDown() {
+  if (ctx_->scene_ == "game_lv2") {
+    ctx_->scene_ = "game_lv1";
+    ctx_->prev_scene_ = "game_lv1";
+  } else if (ctx_->scene_ == "game_lv3") {
+    ctx_->scene_ = "game_lv2";
+    ctx_->prev_scene_ = "game_lv2";
+  }
 }
 
 static bool Filter(const Entity& entity) {
@@ -31,10 +43,23 @@ static bool IsLevelUp(const Entity& entity) {
   return false;
 }
 
+static bool IsLevelDown(const Entity& entity) {
+  auto cc = entity.Get<ColliderComponent>();
+  for (const auto& collision : cc->GetCollisions()) {
+    if (collision->Contains<TextureComponent>()) {
+      if (collision->Get<TextureComponent>()->symbol_ == '<') {
+        return true;
+      }
+    }
+  }
+  return false;
+}
 void LevelUpSystem::OnUpdate() {
   for (auto& entity : GetEntityManager()) {
     if (Filter(entity) && IsLevelUp(entity)) {
       LevelUp();
+    } else if (Filter(entity) && IsLevelDown(entity)) {
+      LevelDown();
     }
   }
 }

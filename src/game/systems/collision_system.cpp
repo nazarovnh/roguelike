@@ -22,7 +22,7 @@ static bool CollisionCoin(const Entity* entity) {
   return entity->Contains<PriceComponent>();
 }
 static bool CollisionDoor(const Entity* entity) {
-  return entity->Get<TextureComponent>()->symbol_ == '>';
+  return entity->Get<TextureComponent>()->symbol_ == '>' || entity->Get<TextureComponent>()->symbol_ == '<';
 }
 
 static void Collide(Entity* entity_1, Entity* entity_2) {

@@ -3,21 +3,27 @@
 #include <lib/ecs/system.h>
 #include <lib/scenes/context.h>
 
+#include "map"
+
 class CreatingEntitySystem : public ISystem {
   EntityManager* creater_;
-  //  const sizeMap = Map([ [ "#", "37-38" ] ]);
+  Context* ctx_;
+  bool used_counter_ = false;
 
  protected:
   void OnUpdate() override;
 
  public:
-  CreatingEntitySystem(EntityManager* entity_manager, SystemManager* const system_manager, EntityManager* creater);
+  CreatingEntitySystem(EntityManager* entity_manager, SystemManager* const system_manager, Context* ctx,
+                       EntityManager* creater);
 
-  // TODO(Nariman) : name function
+  void CreatingEntity(char symbol, int x, int y);
 
-  //  CreatingEntitySystem(EntityManager* const entityManager, SystemManager* systemManager, EntityManager* pManager,
-  //                       SystemManager* pManager1, EntityManager* pManager2, Context* const pContext);
-  //  CreatingEntitySystem(EntityManager* const pManager, SystemManager* pManager1, EntityManager* pManager2,
-  //                       Context* const pContext);
-  void CreatingEntity(char symbol, int i, int j);
+  void CreatePlayer(int x, int y);
+  void CreateWall(int x, int y);
+  void CreateCoin(int x, int y);
+  void CreatePrevDoor(int x, int y);
+  void CreateNextDoor(int x, int y);
+  void CreateScoreBoard(int x, int y);
+  // std::map<char, void (*)(int, int)> m = {'#', CreateWall(0, 0)};
 };

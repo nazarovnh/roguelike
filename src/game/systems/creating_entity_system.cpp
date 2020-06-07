@@ -4,31 +4,91 @@
 #include <game/components/collider_component.h>
 #include <game/components/movement_component.h>
 #include <game/components/obstacle_component.h>
+#include <game/components/scoreboard_component.h>
 #include <game/components/texture_component.h>
 #include <game/components/transform_component.h>
 
-void CreatingEntitySystem::CreatingEntity(char symbol, int i, int j) {
-  if (symbol == '#') {
-    auto wall = creater_->CreateEntity();
-    wall->Add<TransformComponent>(Vec2(i, j));
-    wall->Add<TextureComponent>('#');
-    wall->Add<ObstacleComponent>();
-    wall->Add<ColliderComponent>(OnesVec2, ZeroVec2);
-  } else if (symbol == '@') {
-    auto player = creater_->CreateEntity();
-    player->Add<TransformComponent>(Vec2(10, 1));
-    player->Add<TextureComponent>('@');
-    player->Add<ColliderComponent>(OnesVec2, ZeroVec2);
-    player->Add<PlayerControlComponent>(TK_LEFT, TK_RIGHT, TK_UP, TK_DOWN);
-    player->Add<MovementComponent>(Vec2(1, 1));
+void CreatingEntitySystem::CreatePlayer(int x, int y) {
+  auto player = creater_->CreateEntity();
+  if (ctx_->scene_ != ctx_->prev_scene_) {
+    player->Add<TransformComponent>(Vec2(x, y));
+  } else {
+    player->Add<TransformComponent>(Vec2(46, 10));
   }
+  player->Add<TextureComponent>('@');
+  player->Add<ColliderComponent>(OnesVec2, ZeroVec2);
+  player->Add<PlayerControlComponent>(TK_LEFT, TK_RIGHT, TK_UP, TK_DOWN);
+  player->Add<MovementComponent>(Vec2(1, 1));
 }
 
-void CreatingEntitySystem::OnUpdate() {}
+void CreatingEntitySystem::CreateWall(int x, int y) {
+  auto wall = creater_->CreateEntity();
+  wall->Add<TransformComponent>(Vec2(x, y));
+  wall->Add<TextureComponent>('#');
+  wall->Add<ObstacleComponent>();
+  wall->Add<ColliderComponent>(OnesVec2, ZeroVec2);
+}
+void CreatingEntitySystem::CreateCoin(int x, int y) {
+  auto coin = creater_->CreateEntity();
+  coin->Add<TransformComponent>(Vec2(x, y));
+  coin->Add<TextureComponent>('$');
+  coin->Add<ObstacleComponent>();
+  coin->Add<PriceComponent>();
+  coin->Add<ColliderComponent>(OnesVec2, ZeroVec2);
+}
 
-CreatingEntitySystem::CreatingEntitySystem(EntityManager* const entity_manager, SystemManager* const system_manager,
-                                           EntityManager* creater)
-    : ISystem(entity_manager, system_manager), creater_(creater) {}
+void CreatingEntitySystem::CreatePrevDoor(int x, int y) {
+  auto door = creater_->CreateEntity();
+  door->Add<TransformComponent>(Vec2(x, y));
+  door->Add<TextureComponent>('<');
+  door->Add<ObstacleComponent>();
+  door->Add<ColliderComponent>(OnesVec2, ZeroVec2);
+}
+
+void CreatingEntitySystem::CreateNextDoor(int x, int y) {
+  auto door = creater_->CreateEntity();
+  door->Add<TransformComponent>(Vec2(x, y));
+  door->Add<TextureComponent>('>');
+  door->Add<ObstacleComponent>();
+  door->Add<ColliderComponent>(OnesVec2, ZeroVec2);
+}
+void CreatingEntitySystem::CreateScoreBoard(int x, int y) {
+  auto scoreboard_coins = creater_->CreateEntity();
+  scoreboard_coins->Add<TransformComponent>(Vec2(x, y));
+  scoreboard_coins->Add<TextureComponent>('$');
+  scoreboard_coins->Add<ScoreBoardComponent>();
+  scoreboard_coins->Add<ColliderComponent>(OnesVec2, ZeroVec2);
+}
+
+void CreatingEntitySystem::CreatingEntity(char symbol, int x, int y) {
+  //    auto it = m.find(symbol);
+  //    if (it != m.end()){
+  //      it->second();
+  //  }
+  //    else{
+  //      std::cout << "not found\n";
+  //  }
+
+  if (symbol == '#') {
+    CreateWall(x, y);
+  } else if (symbol == '@') {
+    CreatePlayer(x, y);
+  } else if (symbol == '$') {
+    CreateCoin(x, y);
+  } else if (symbol == '>') {
+    CreateNextDoor(x, y);
+  } else if (symbol == '<') {
+    CreatePrevDoor(x, y);
+  }
+  if (!used_counter_) {
+    CreateScoreBoard(73, 2);
+    used_counter_ = true;
+  }
+}
+void CreatingEntitySystem::OnUpdate() {}
+CreatingEntitySystem::CreatingEntitySystem(EntityManager* entity_manager, SystemManager* const system_manager,
+                                           Context* ctx, EntityManager* creater)
+    : ISystem(entity_manager, system_manager), ctx_(ctx), creater_(creater) {}
 
 // CreatingEntitySystem::CreatingEntitySystem(EntityManager* entityManager, SystemManager* systemManager,
 //                                           EntityManager* const pManager, SystemManager* pManager1,
