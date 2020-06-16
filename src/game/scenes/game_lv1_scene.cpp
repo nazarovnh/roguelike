@@ -3,6 +3,7 @@
 #include <game/systems/collision_system.h>
 #include <game/systems/creating_entity_system.h>
 #include <game/systems/game_over_system.h>
+#include <game/systems/generate_random_map_system.h>
 #include <game/systems/level_up_system.h>
 #include <game/systems/pick_up_coin_system.h>
 #include <game/systems/reading_file_levels_system.h>
@@ -38,7 +39,8 @@ void GameSceneLv1::OnCreate() {
   sys->AddSystem<PickUpCoinSystem>(controls, ctx_);
   sys->AddSystem<LevelUpSystem>(ctx_);
   sys->AddSystem<GameOverSystem>(ctx_);
-  sys->AddSystem<ReadingFileLevelsSystem>(ctx_, engine.GetSystemManager()->Get<CreatingEntitySystem>());
+  //  sys->AddSystem<ReadingFileLevelsSystem>(ctx_, engine.GetSystemManager()->Get<CreatingEntitySystem>());
+  sys->AddSystem<GenerateRandomMapSystem>(engine.GetSystemManager()->Get<CreatingEntitySystem>(), 79, 28);
 }
 void GameSceneLv1::OnRender() {
   engine.OnUpdate();

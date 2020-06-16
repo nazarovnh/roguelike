@@ -27,5 +27,5 @@ void ReadingFileLevelsSystem::OnUpdate() {
 }
 
 void ReadingFileLevelsSystem::OnPostUpdate() {
-  creatingEntitySystem_->GetSystemManagerPtr()->Delete<ReadingFileLevelsSystem>();
+  GetSystemManagerPtr()->Delete<ReadingFileLevelsSystem>();
 }
