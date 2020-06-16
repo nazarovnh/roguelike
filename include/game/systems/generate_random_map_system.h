@@ -48,6 +48,7 @@ class GenerateRandomMapSystem : public ISystem {
   void generate(int roomsCount);
   void generatePassage(const Point &start, const Point &finish);
   void generateWalls();
+  void generateCoins();
 
  protected:
   void OnUpdate() override;
