@@ -40,7 +40,7 @@ void GameSceneLv1::OnCreate() {
   sys->AddSystem<LevelUpSystem>(ctx_);
   sys->AddSystem<GameOverSystem>(ctx_);
   //  sys->AddSystem<ReadingFileLevelsSystem>(ctx_, engine.GetSystemManager()->Get<CreatingEntitySystem>());
-  sys->AddSystem<GenerateRandomMapSystem>(engine.GetSystemManager()->Get<CreatingEntitySystem>(), 79, 28);
+  sys->AddSystem<GenerateRandomMapSystem>(ctx_, engine.GetSystemManager()->Get<CreatingEntitySystem>(), 72, 24);
 }
 void GameSceneLv1::OnRender() {
   engine.OnUpdate();

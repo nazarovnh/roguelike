@@ -9,6 +9,7 @@ class CreatingEntitySystem : public ISystem {
   EntityManager* creater_;
   Context* ctx_;
   bool used_counter_ = false;
+  //  std::map<char, void*> m = {{'#', CreateWall(0, 0)}};
 
  protected:
   void OnUpdate() override;
@@ -25,5 +26,4 @@ class CreatingEntitySystem : public ISystem {
   void CreatePrevDoor(int x, int y);
   void CreateNextDoor(int x, int y);
   void CreateScoreBoard(int x, int y);
-  // std::map<char, void (*)(int, int)> m = {'#', CreateWall(0, 0)};
 };

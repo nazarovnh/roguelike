@@ -20,11 +20,12 @@ void LevelUpSystem::LevelUp() {
 void LevelUpSystem::LevelDown() {
   if (ctx_->scene_ == "game_lv2") {
     ctx_->scene_ = "game_lv1";
-    ctx_->prev_scene_ = "game_lv1";
+    ctx_->prev_scene_ = "game_lv2";
   } else if (ctx_->scene_ == "game_lv3") {
     ctx_->scene_ = "game_lv2";
-    ctx_->prev_scene_ = "game_lv2";
+    ctx_->prev_scene_ = "game_lv3";
   }
+  ctx_->level_number--;
 }
 
 static bool Filter(const Entity& entity) {

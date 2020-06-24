@@ -27,6 +27,7 @@ void ResultScene::OnRender() {
   terminal_print(8, 3, str_1);
   terminal_print(8, 5, str_2);
   if (controls_.IsPressed(TK_ENTER)) {
+    ctx_->level_number++;
     if (ctx_->prev_scene_ == "game_lv1") {
       ctx_->scene_ = "game_lv2";
     } else if (ctx_->prev_scene_ == "game_lv2") {
@@ -34,6 +35,7 @@ void ResultScene::OnRender() {
     } else if (ctx_->prev_scene_ == "game_lv3") {
       ctx_->scene_ = "title";
     }
+    ctx_->prev_scene_ = "result_scene";
   }
   terminal_refresh();
 }

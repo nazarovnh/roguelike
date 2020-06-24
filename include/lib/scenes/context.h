@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <map>
+#include <vector>
 
 /**
  * В контексте хранится информация о сцене, которую нужно сейчас отрисоватывать.
@@ -16,6 +18,8 @@ class Context {
  public:
   std::string scene_ = "";
   std::string prev_scene_ = "";
+  std::map<int, std::vector<int>> levels_;
+  int level_number = 0;
   int score_steps = 0;
   int score_coins = 0;
 };

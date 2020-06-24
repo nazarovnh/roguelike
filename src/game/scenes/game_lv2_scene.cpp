@@ -1,6 +1,7 @@
 #include <game/scenes/game_lv2_scene.h>
 #include <game/systems/collision_system.h>
 #include <game/systems/game_over_system.h>
+#include <game/systems/generate_random_map_system.h>
 #include <game/systems/level_up_system.h>
 #include <game/systems/pick_up_coin_system.h>
 #include <game/systems/reading_file_levels_system.h>
@@ -20,7 +21,8 @@ void GameSceneLv2::OnCreate() {
   sys->AddSystem<PickUpCoinSystem>(controls, ctx_);
   sys->AddSystem<LevelUpSystem>(ctx_);
   sys->AddSystem<GameOverSystem>(ctx_);
-  sys->AddSystem<ReadingFileLevelsSystem>(ctx_, engine.GetSystemManager()->Get<CreatingEntitySystem>());
+  //  sys->AddSystem<ReadingFileLevelsSystem>(ctx_, engine.GetSystemManager()->Get<CreatingEntitySystem>());
+  sys->AddSystem<GenerateRandomMapSystem>(ctx_, engine.GetSystemManager()->Get<CreatingEntitySystem>(), 72, 24);
 }
 
 void GameSceneLv2::OnRender() {

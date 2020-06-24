@@ -61,9 +61,8 @@ void CreatingEntitySystem::CreateScoreBoard(int x, int y) {
 }
 
 void CreatingEntitySystem::CreatingEntity(char symbol, int x, int y) {
-  //    auto it = m.find(symbol);
-  //    if (it != m.end()){
-  //      it->second();
+  //    if (m.find(symbol) != m.end()){
+  //      m.find(symbol)->second();
   //  }
   //    else{
   //      std::cout << "not found\n";

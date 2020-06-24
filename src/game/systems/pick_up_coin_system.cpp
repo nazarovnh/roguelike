@@ -41,6 +41,13 @@ auto GivePrice(Entity* entity) {
 void PickUpCoinSystem::AddCoin(Entity* entity_1, Entity* entity_2) {
   auto pc = GivePrice(entity_1);
   auto sb = entity_2->Get<ScoreBoardComponent>();
+  int x = entity_1->Get<TransformComponent>()->pos_.x;
+  int y = entity_1->Get<TransformComponent>()->pos_.y;
+  if (ctx_->levels_.count(ctx_->level_number) != 0) {
+    std::cout << ctx_->levels_.find(ctx_->level_number)->second[x + y * 72] << std::endl;
+    ctx_->levels_.find(ctx_->level_number)->second[x + y * 72] = 0;
+    std::cout << "coin change " << ctx_->scene_ << std::endl;
+  }
   sb->score_coins_ += pc->price_;
   ctx_->score_coins += pc->price_;
 }

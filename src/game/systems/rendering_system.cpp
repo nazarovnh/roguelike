@@ -15,8 +15,8 @@ void RenderingSystem::OnUpdate() {
         auto scoreboard = e.Get<ScoreBoardComponent>();
         auto transform = e.Get<TransformComponent>();
 
-        char str_1[120];
-        char str_2[120];
+        char str_1[220];
+        char str_2[220];
 
         snprintf(str_1, sizeof(str_1), "%d", scoreboard->score_steps_);
         snprintf(str_2, sizeof(str_2), "%d", scoreboard->score_coins_);

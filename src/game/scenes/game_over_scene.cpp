@@ -16,6 +16,8 @@ void GameOverScene::OnRender() {
   terminal_print(8, 5, str_2);
 
   if (controls_.IsPressed(TK_ENTER)) {
+    ctx_->levels_.clear();
+    ctx_->level_number = 0;
     ctx_->scene_ = "title";
   }
   terminal_refresh();
