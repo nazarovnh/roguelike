@@ -24,6 +24,7 @@ void LevelUpSystem::LevelDown() {
   } else if (ctx_->scene_ == "game_lv3") {
     ctx_->scene_ = "game_lv2";
     ctx_->prev_scene_ = "game_lv3";
+    std::cout << "ctx_->scene_" << ctx_->scene_ << std::endl;
   }
   ctx_->level_number--;
 }

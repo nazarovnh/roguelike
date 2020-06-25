@@ -10,8 +10,8 @@
 
 #include "vector"
 void ReadingFileLevelsSystem::OnUpdate() {
-  std::ifstream LevelFile(path_file_.find(ctx_->scene_)->second);
-
+  std::ifstream LevelFile(path_file_.find(ctx_->level_number)->second);
+  std::cout << "ctx_->scene_" << ctx_->scene_ << std::endl;
   if (!LevelFile.is_open()) {
     std::cout << "cant open file" << std::endl;
     exit(-1);
@@ -48,7 +48,7 @@ void ReadingFileLevelsSystem::OnPostUpdate() {
   GetSystemManagerPtr()->Delete<ReadingFileLevelsSystem>();
 }
 void ReadingFileLevelsSystem::SizeFile() {
-  std::ifstream LevelFile(path_file_.find(ctx_->scene_)->second);
+  std::ifstream LevelFile(path_file_.find(ctx_->level_number)->second);
 
   int c = 0;
   if (!LevelFile.is_open()) {
