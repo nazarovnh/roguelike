@@ -7,13 +7,21 @@
 #include <game/components/scoreboard_component.h>
 #include <game/components/texture_component.h>
 #include <game/components/transform_component.h>
+#include <game/systems/generate_random_map_system.h>
+#include <game/systems/reading_file_levels_system.h>
 
 void CreatingEntitySystem::CreatePlayer(int x, int y) {
   auto player = creater_->CreateEntity();
-  if (ctx_->scene_ != ctx_->prev_scene_) {
+  if (GetSystemManagerPtr()->Have<ReadingFileLevelsSystem>()) {
+    if (ctx_->prev_scene_ == "title") {
+      player->Add<TransformComponent>(Vec2(2, 2));
+    } else if (ctx_->scene_ < ctx_->prev_scene_ && ctx_->prev_scene_ != "result_scene") {
+      player->Add<TransformComponent>(Vec2(x_next_door - 1, y_next_door));
+    } else if (ctx_->prev_scene_ == "result_scene") {
+      player->Add<TransformComponent>(Vec2(x_prev_door, y_prev_door + 1));
+    }
+  } else if (GetSystemManagerPtr()->Have<GenerateRandomMapSystem>()) {
     player->Add<TransformComponent>(Vec2(x, y));
-  } else {
-    player->Add<TransformComponent>(Vec2(46, 10));
   }
   player->Add<TextureComponent>('@');
   player->Add<ColliderComponent>(OnesVec2, ZeroVec2);
@@ -35,6 +43,8 @@ void CreatingEntitySystem::CreateCoin(int x, int y) {
   coin->Add<ObstacleComponent>();
   coin->Add<PriceComponent>();
   coin->Add<ColliderComponent>(OnesVec2, ZeroVec2);
+  std::cout << "create "
+            << "x " << x << " y " << y << std::endl;
 }
 
 void CreatingEntitySystem::CreatePrevDoor(int x, int y) {
@@ -43,6 +53,8 @@ void CreatingEntitySystem::CreatePrevDoor(int x, int y) {
   door->Add<TextureComponent>('<');
   door->Add<ObstacleComponent>();
   door->Add<ColliderComponent>(OnesVec2, ZeroVec2);
+  x_prev_door = x;
+  y_prev_door = y;
 }
 
 void CreatingEntitySystem::CreateNextDoor(int x, int y) {
@@ -51,6 +63,8 @@ void CreatingEntitySystem::CreateNextDoor(int x, int y) {
   door->Add<TextureComponent>('>');
   door->Add<ObstacleComponent>();
   door->Add<ColliderComponent>(OnesVec2, ZeroVec2);
+  x_next_door = x;
+  y_next_door = y;
 }
 void CreatingEntitySystem::CreateScoreBoard(int x, int y) {
   auto scoreboard_coins = creater_->CreateEntity();
@@ -78,7 +92,17 @@ void CreatingEntitySystem::CreatingEntity(char symbol, int x, int y) {
     CreateNextDoor(x, y);
   } else if (symbol == '<') {
     CreatePrevDoor(x, y);
+    count_player_++;
   }
+  // else if (count_player_ == 2) {
+  //    std::cout << "x_prev_door " << x_prev_door << std::endl;
+  //    std::cout << "y_prev_door " << y_prev_door << std::endl;
+  //    std::cout << "x_next_door " << x_next_door << std::endl;
+  //    std::cout << "y_next_door " << y_next_door << std::endl;
+  //    CreatePlayer(x, y);
+  //    count_player_++;
+  //  }
+
   if (!used_counter_) {
     CreateScoreBoard(73, 2);
     used_counter_ = true;

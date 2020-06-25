@@ -21,8 +21,8 @@ void GameSceneLv2::OnCreate() {
   sys->AddSystem<PickUpCoinSystem>(controls, ctx_);
   sys->AddSystem<LevelUpSystem>(ctx_);
   sys->AddSystem<GameOverSystem>(ctx_);
-  //  sys->AddSystem<ReadingFileLevelsSystem>(ctx_, engine.GetSystemManager()->Get<CreatingEntitySystem>());
-  sys->AddSystem<GenerateRandomMapSystem>(ctx_, engine.GetSystemManager()->Get<CreatingEntitySystem>(), 72, 24);
+  sys->AddSystem<ReadingFileLevelsSystem>(ctx_, engine.GetSystemManager()->Get<CreatingEntitySystem>());
+  //  sys->AddSystem<GenerateRandomMapSystem>(ctx_, engine.GetSystemManager()->Get<CreatingEntitySystem>(), 72, 24);
 }
 
 void GameSceneLv2::OnRender() {

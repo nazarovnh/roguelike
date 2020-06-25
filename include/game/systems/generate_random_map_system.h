@@ -49,6 +49,8 @@ class GenerateRandomMapSystem : public ISystem {
         m_width(width),
         m_height(height) {
     m_data.resize(width * height, 0);
+    ctx_->width_ = width;
+    ctx_->height_ = height;
     // ctx_->levels_.find(ctx_->level_number)->second.resize(width * height, 0);
   }
 

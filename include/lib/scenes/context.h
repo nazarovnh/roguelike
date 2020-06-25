@@ -1,6 +1,6 @@
 #pragma once
-#include <string>
 #include <map>
+#include <string>
 #include <vector>
 
 /**
@@ -22,4 +22,7 @@ class Context {
   int level_number = 0;
   int score_steps = 0;
   int score_coins = 0;
+  int width_ = 0;
+  int height_ = 0;
+  // int fornidden_cages_[72][24];
 };

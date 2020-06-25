@@ -58,7 +58,6 @@ void GenerateRandomMapSystem::OnUpdate() {
             std::cout << "player add" << std::endl;
           }
         } else if (a == 0 && ctx_->levels_.find(ctx_->level_number)->second[x + y * m_width] == 5) {
-          a++;
           creatingEntitySystem_->CreatingEntity('<', x, y);
           if (ctx_->prev_scene_ == "result_scene") {
             // std::cout << "player add" << std::endl;
@@ -202,7 +201,7 @@ void GenerateRandomMapSystem::generateCoins() {
 void GenerateRandomMapSystem::generateDoor() {
   if (ctx_->levels_.find(ctx_->level_number)->second[(max_x_ + 1) + (max_y_) *m_width] == 1) {
     ctx_->levels_.find(ctx_->level_number)->second[(max_x_ + 1) + (max_y_) *m_width] = 4;
-    creatingEntitySystem_->CreatingEntity('>', max_x_ + 1, (max_y_));
+    creatingEntitySystem_->CreatingEntity('>', max_x_ + 1, max_y_);
   } else if (ctx_->levels_.find(ctx_->level_number)->second[(max_x_ - 1) + (max_y_) *m_width] == 1) {
     ctx_->levels_.find(ctx_->level_number)->second[(max_x_ - 1) + (max_y_) *m_width] = 4;
     creatingEntitySystem_->CreatingEntity('>', max_x_ - 1, max_y_);
@@ -221,7 +220,6 @@ void GenerateRandomMapSystem::generatePlayer() {
   //  } else
   if (ctx_->levels_.find(ctx_->level_number)->second[(min_x_ + 1) + (min_y_ + 1) * m_width] == 1 &&
       (ctx_->scene_ != ctx_->prev_scene_)) {
-    //  std::cout << "player add" << std::endl;
     creatingEntitySystem_->CreatingEntity('@', min_x_ + 1, min_y_ + 1);
   }
 }

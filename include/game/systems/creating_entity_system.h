@@ -9,6 +9,11 @@ class CreatingEntitySystem : public ISystem {
   EntityManager* creater_;
   Context* ctx_;
   bool used_counter_ = false;
+  int x_next_door = -1;
+  int y_next_door = -1;
+  int x_prev_door = -1;
+  int y_prev_door = -1;
+  int count_player_ = 0;
   //  std::map<char, void*> m = {{'#', CreateWall(0, 0)}};
 
  protected:

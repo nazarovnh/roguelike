@@ -12,6 +12,7 @@
 class ReadingFileLevelsSystem : public ISystem {
   CreatingEntitySystem *creatingEntitySystem_;
   Context *ctx_;
+  std::vector<int> m_data;
   std::map<std::string, std::string> path_file_ = {
       {"game_lv1", "levels/level_1"}, {"game_lv2", "levels/level_2"}, {"game_lv3", "levels/level_3"}};
 
@@ -19,6 +20,8 @@ class ReadingFileLevelsSystem : public ISystem {
   void OnUpdate() override;
 
   void OnPostUpdate() override;
+
+  void SizeFile();
 
  public:
   std::string s;

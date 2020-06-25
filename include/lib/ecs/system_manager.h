@@ -52,6 +52,11 @@ class SystemManager {
   }
 
   template<typename System>
+  bool Have() {
+    return systems.find(typeid(System)) != systems.end();
+  }
+
+  template<typename System>
   void Disable() const {
     systems.at(typeid(System))->is_enabled_ = false;
   }

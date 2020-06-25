@@ -6,6 +6,8 @@
 #include <game/components/scoreboard_component.h>
 #include <game/components/stamp_remove_component.h>
 #include <game/components/texture_component.h>
+#include <game/systems/generate_random_map_system.h>
+#include <game/systems/reading_file_levels_system.h>
 #include <lib/ecs/entity.h>
 #include <lib/ecs/entity_manager.h>
 
@@ -43,11 +45,18 @@ void PickUpCoinSystem::AddCoin(Entity* entity_1, Entity* entity_2) {
   auto sb = entity_2->Get<ScoreBoardComponent>();
   int x = entity_1->Get<TransformComponent>()->pos_.x;
   int y = entity_1->Get<TransformComponent>()->pos_.y;
-  if (ctx_->levels_.count(ctx_->level_number) != 0) {
-    std::cout << ctx_->levels_.find(ctx_->level_number)->second[x + y * 72] << std::endl;
-    ctx_->levels_.find(ctx_->level_number)->second[x + y * 72] = 0;
-    std::cout << "coin change " << ctx_->scene_ << std::endl;
-  }
+  // if (GetSystemManagerPtr()->Have<GenerateRandomMapSystem>()) {
+  std::cout << "coin change " << ctx_->scene_ << std::endl;
+  std::cout << "pick "
+            << "x " << x << " y " << y << std::endl;
+  ctx_->levels_.find(ctx_->level_number)->second[x + y * ctx_->width_] = 1;
+  std::cout << ctx_->levels_.find(ctx_->level_number)->second[x + y * ctx_->width_] << std::endl;
+  //  }
+  // else if (GetSystemManagerPtr()->Have<ReadingFileLevelsSystem>()) {
+  // ctx_->fornidden_cages_[x][y] = -1;
+  std::cout << "coin remember " << ctx_->scene_ << std::endl;
+  //  }
+
   sb->score_coins_ += pc->price_;
   ctx_->score_coins += pc->price_;
 }
