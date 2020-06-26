@@ -70,7 +70,7 @@ void CreatingEntitySystem::CreateScoreBoard(int x, int y) {
   auto scoreboard_coins = creater_->CreateEntity();
   scoreboard_coins->Add<TransformComponent>(Vec2(x, y));
   scoreboard_coins->Add<TextureComponent>('$');
-  scoreboard_coins->Add<ScoreBoardComponent>();
+  scoreboard_coins->Add<ScoreBoardComponent>(ctx_);
   scoreboard_coins->Add<ColliderComponent>(OnesVec2, ZeroVec2);
 }
 

@@ -39,8 +39,6 @@ void GenerateRandomMapSystem::OnUpdate() {
     generatePlayer();
     generateCoins();
     generateDoor();
-    // ctx_->levels_.insert(std::pair<int, std::vector<int>>(ctx_->level_number,
-    // ctx_->levels_.find(ctx_->level_number)->second));
   } else {
     std::cout << "found" << std::endl;
     int a = 0;
@@ -57,7 +55,7 @@ void GenerateRandomMapSystem::OnUpdate() {
             creatingEntitySystem_->CreatingEntity('@', x - 1, y);
             std::cout << "player add" << std::endl;
           }
-        } else if (a == 0 && ctx_->levels_.find(ctx_->level_number)->second[x + y * m_width] == 5) {
+        } else if (ctx_->levels_.find(ctx_->level_number)->second[x + y * m_width] == 5) {
           creatingEntitySystem_->CreatingEntity('<', x, y);
           if (ctx_->prev_scene_ == "result_scene") {
             // std::cout << "player add" << std::endl;
