@@ -17,7 +17,7 @@ void GenerateRandomMapSystem::OnUpdate() {
   Finish.x = 68;
   Finish.y = 20;
   Finish.cost = 1;
-  int count_r = 1 + random() % 3;
+  int count_r = 10 + random() % 15;
   std::cout << "level nubmer is " << ctx_->level_number << std::endl;
   std::cout << "ctx_->scene_ " << ctx_->scene_ << std::endl;
   std::cout << "ctx_->prev_scene_ " << ctx_->prev_scene_ << std::endl;
@@ -41,7 +41,6 @@ void GenerateRandomMapSystem::OnUpdate() {
     generateDoor();
   } else {
     std::cout << "found" << std::endl;
-    int a = 0;
     for (int x = 0; x < m_width; x++) {
       for (int y = 0; y < m_height; y++) {
         if (ctx_->levels_.find(ctx_->level_number)->second[x + y * m_width] == 2) {
@@ -58,7 +57,6 @@ void GenerateRandomMapSystem::OnUpdate() {
         } else if (ctx_->levels_.find(ctx_->level_number)->second[x + y * m_width] == 5) {
           creatingEntitySystem_->CreatingEntity('<', x, y);
           if (ctx_->prev_scene_ == "result_scene") {
-            // std::cout << "player add" << std::endl;
             creatingEntitySystem_->CreatingEntity('@', x, y + 1);
           }
         }
@@ -70,7 +68,6 @@ void GenerateRandomMapSystem::OnUpdate() {
 void GenerateRandomMapSystem::generate(int roomsCount) {
   srand(time(NULL));
   m_rooms.clear();
-  // std::cout << roomsCount << " roomsCount" << std::endl;
   // второй цикл предотвращает залипание, в случае если на карту уже не помещается ни одной комнаты
   for (int i = 0; i < roomsCount; ++i)
     for (int j = 0; j < 100; ++j) {
@@ -180,7 +177,6 @@ void GenerateRandomMapSystem::OnPostUpdate() {
 void GenerateRandomMapSystem::generateCoins() {
   srand(time(NULL));
   int countCoins = 1 + random() % 3;
-  // std::cout << "countCoins " << countCoins << std::endl;
   for (int i = 0; i < countCoins; i++) {
     int x = 0 + random() % 70;
     int y = 0 + random() % 26;
@@ -213,16 +209,8 @@ void GenerateRandomMapSystem::generateDoor() {
   }
 }
 void GenerateRandomMapSystem::generatePlayer() {
-  //  if ((m_data[(max_x_ - 2) + (max_y_) *m_width] == 1) && (ctx_->scene_ < ctx_->prev_scene_)) {
-  //    creatingEntitySystem_->CreatingEntity('@', max_x_ - 2, max_y_);
-  //  } else
   if (ctx_->levels_.find(ctx_->level_number)->second[(min_x_ + 1) + (min_y_ + 1) * m_width] == 1 &&
       (ctx_->scene_ != ctx_->prev_scene_)) {
     creatingEntitySystem_->CreatingEntity('@', min_x_ + 1, min_y_ + 1);
   }
 }
-
-// while (m_data[x + ((y + 2) * m_width)] != 1) {
-//            int x = 0 + random() % 75;
-//            int y = 0 + random() % 28;
-//          }

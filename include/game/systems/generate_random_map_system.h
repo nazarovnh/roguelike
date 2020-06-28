@@ -51,7 +51,6 @@ class GenerateRandomMapSystem : public ISystem {
     m_data.resize(width * height, 0);
     ctx_->width_ = width;
     ctx_->height_ = height;
-    // ctx_->levels_.find(ctx_->level_number)->second.resize(width * height, 0);
   }
 
   void generate(int roomsCount);

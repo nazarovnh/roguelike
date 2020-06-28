@@ -23,10 +23,15 @@ void RenderingSystem::OnUpdate() {
         terminal_print(ToPos(transform->pos_.x + 2), ToPos(transform->pos_.y - 2), str_1);
         terminal_print(ToPos(transform->pos_.x + 2), ToPos(transform->pos_.y), str_2);
         terminal_put(ToPos(transform->pos_.x), ToPos(transform->pos_.y - 2), '@');
+      } else if (e.Contains<PriceComponent>()) {
+        terminal_set("0x1000: img/spin_coin.png, size=9x10");
+        auto transform = e.Get<TransformComponent>();
+        terminal_put(ToPos(transform->pos_.x), ToPos(transform->pos_.y), 0x1000);
+      } else {
+        auto texture = e.Get<TextureComponent>();
+        auto transform = e.Get<TransformComponent>();
+        terminal_put(ToPos(transform->pos_.x), ToPos(transform->pos_.y), texture->symbol_);
       }
-      auto texture = e.Get<TextureComponent>();
-      auto transform = e.Get<TransformComponent>();
-      terminal_put(ToPos(transform->pos_.x), ToPos(transform->pos_.y), texture->symbol_);
     }
   }
 }

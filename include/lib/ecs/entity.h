@@ -43,24 +43,6 @@ class Entity {
     return dynamic_cast<Component*>(c);
   }
 
-  //  template<typename Component>
-  //  std::vector<std::unique_ptr<IComponent>> GetAll() const {
-  //    std::vector<std::unique_ptr<IComponent>> vector_components;
-  //    for (auto& item : components) {
-  //      vector_components.push_back(item.second);
-  //    }
-  //    return vector_components;
-  //  }
-
-  //  template<typename Component>
-  //  std::vector<std::unique_ptr<IComponent>>& GetAll() const {
-  //    return components->second;
-  //  }
-  //
-  //  void RemoveAllComponents() {
-  //
-  //  }
-
   template<typename Component>
   bool Contains() const {
     return components.count(typeid(Component)) != 0;

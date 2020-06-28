@@ -24,5 +24,4 @@ class Context {
   int score_coins = 0;
   int width_ = 0;
   int height_ = 0;
-  // int fornidden_cages_[72][24];
 };

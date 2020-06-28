@@ -4,7 +4,6 @@
 #include <game/components/coin_component.h>
 #include <game/components/price_component.h>
 #include <game/components/scoreboard_component.h>
-//  #include <lib/ecs/component.h>
 #include <lib/ecs/system.h>
 
 #include <map>
@@ -13,6 +12,7 @@ class TextureComponent;
 class IComponent;
 
 class CollisionSystem : public ISystem {
+  // TODO(Nariman) : посмотреть реализацию, есть 2 варианта IFactory или паттерн прототип
   //  std::map<IComponent&, void (*)()> action = {PriceComponent, ScoreBoardComponent.AddCoin()};
   //  std::map<IComponent*, void (*)()> action = {&TextureComponent, ScoreBoardComponent().AddCoin()};
 

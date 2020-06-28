@@ -16,13 +16,13 @@ void GameSceneLv2::OnCreate() {
   sys->AddSystem<RenderingSystem>();
   sys->AddSystem<MovementSystem>(controls);
   sys->AddSystem<StepsCountSystem>(controls, ctx_);
-  sys->AddSystem<ObstaclesControlSystem>(width_);
+  sys->AddSystem<ObstaclesControlSystem>();
   sys->AddSystem<CollisionSystem>();
   sys->AddSystem<PickUpCoinSystem>(controls, ctx_);
   sys->AddSystem<LevelUpSystem>(ctx_);
   sys->AddSystem<GameOverSystem>(ctx_);
-  sys->AddSystem<ReadingFileLevelsSystem>(ctx_, engine.GetSystemManager()->Get<CreatingEntitySystem>());
-  //  sys->AddSystem<GenerateRandomMapSystem>(ctx_, engine.GetSystemManager()->Get<CreatingEntitySystem>(), 72, 24);
+  //  sys->AddSystem<ReadingFileLevelsSystem>(ctx_, engine.GetSystemManager()->Get<CreatingEntitySystem>());
+  sys->AddSystem<GenerateRandomMapSystem>(ctx_, engine.GetSystemManager()->Get<CreatingEntitySystem>(), 72, 24);
 }
 
 void GameSceneLv2::OnRender() {

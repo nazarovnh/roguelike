@@ -6,8 +6,6 @@
 #include "lib/scenes/i_scene.h"
 
 class GameSceneLv3 : public IScene {
-  const int width_ = 80;
-  const int ground_y_ = 15;
   const Engine engine{};
   const Controls& controls;
 

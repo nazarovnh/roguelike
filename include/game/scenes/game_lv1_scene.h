@@ -6,8 +6,6 @@
 
 #include "vector"
 class GameSceneLv1 : public IScene {
-  const int width_ = 80;
-  const int ground_y_ = 15;
   const Controls& controls;
   const Engine engine{};
 

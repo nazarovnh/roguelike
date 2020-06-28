@@ -9,12 +9,14 @@
 void LevelUpSystem::LevelUp() {
   if (ctx_->scene_ == "game_lv1") {
     ctx_->prev_scene_ = "game_lv1";
+    ctx_->scene_ = "result_scene";
   } else if (ctx_->scene_ == "game_lv2") {
     ctx_->prev_scene_ = "game_lv2";
+    ctx_->scene_ = "result_scene";
   } else if (ctx_->scene_ == "game_lv3") {
-    ctx_->prev_scene_ = "game_lv2";
+    ctx_->prev_scene_ = "game_lv3";
+    ctx_->scene_ = "game_over";
   }
-  ctx_->scene_ = "result_scene";
 }
 
 void LevelUpSystem::LevelDown() {
@@ -33,6 +35,7 @@ static bool Filter(const Entity& entity) {
   return entity.Contains<ColliderComponent>() && entity.Contains<PlayerControlComponent>();
 }
 
+// TODO(Nariman) : оптимизировать перебор ColliderComponent + сравнивать не с элементом а добавить component
 static bool IsLevelUp(const Entity& entity) {
   auto cc = entity.Get<ColliderComponent>();
   for (const auto& collision : cc->GetCollisions()) {
@@ -45,6 +48,7 @@ static bool IsLevelUp(const Entity& entity) {
   return false;
 }
 
+// TODO(Nariman) : оптимизировать перебор ColliderComponent + сравнивать не с элементом а добавить component
 static bool IsLevelDown(const Entity& entity) {
   auto cc = entity.Get<ColliderComponent>();
   for (const auto& collision : cc->GetCollisions()) {

@@ -11,8 +11,8 @@
 #include "vector"
 void ReadingFileLevelsSystem::OnUpdate() {
   std::ifstream LevelFile(path_file_.find(ctx_->level_number)->second);
-  std::cout << "ctx_->scene_" << ctx_->scene_ << std::endl;
   if (!LevelFile.is_open()) {
+    // TODO(Nariman) : добавить сцену с ошибкой
     std::cout << "cant open file" << std::endl;
     exit(-1);
   }
@@ -21,14 +21,8 @@ void ReadingFileLevelsSystem::OnUpdate() {
   if (ctx_->levels_.count(ctx_->level_number) == 0) {
     ctx_->levels_.insert(std::pair<int, std::vector<int>>(ctx_->level_number, m_data));
     ctx_->levels_.find(ctx_->level_number)->second.assign(ctx_->width_ * ctx_->height_, 0);
-  }  //  for (int y = 0; y < ctx_->height_; y++) {
-  //    for (int x = 0; x < ctx_->width_; x++) {
-  //      creatingEntitySystem_->CreatingEntity(s[x], x, y);
-  //    }
-  //  }
+  }
   int y = 0;
-  std::cout << "width " << ctx_->width_ << std::endl;
-  // creatingEntitySystem_->CreatingEntity('$', ctx_->width_, ctx_->height_ + 1);
   while (std::getline(LevelFile, s)) {
     for (int x = 0; x < s.size(); x++) {
       if (ctx_->levels_.find(ctx_->level_number)->second[x + y * ctx_->width_] != 1) {

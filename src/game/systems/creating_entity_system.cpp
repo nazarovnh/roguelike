@@ -43,8 +43,6 @@ void CreatingEntitySystem::CreateCoin(int x, int y) {
   coin->Add<ObstacleComponent>();
   coin->Add<PriceComponent>();
   coin->Add<ColliderComponent>(OnesVec2, ZeroVec2);
-  std::cout << "create "
-            << "x " << x << " y " << y << std::endl;
 }
 
 void CreatingEntitySystem::CreatePrevDoor(int x, int y) {
@@ -75,6 +73,8 @@ void CreatingEntitySystem::CreateScoreBoard(int x, int y) {
 }
 
 void CreatingEntitySystem::CreatingEntity(char symbol, int x, int y) {
+  // TODO(Nariman): код нужный, для реализации с map(подсказка есть в другом TODO насчет 2 вариантов IFactory и
+  // прототипа)
   //    if (m.find(symbol) != m.end()){
   //      m.find(symbol)->second();
   //  }
@@ -88,20 +88,13 @@ void CreatingEntitySystem::CreatingEntity(char symbol, int x, int y) {
     CreatePlayer(x, y);
   } else if (symbol == '$') {
     CreateCoin(x, y);
+
   } else if (symbol == '>') {
     CreateNextDoor(x, y);
   } else if (symbol == '<') {
     CreatePrevDoor(x, y);
     count_player_++;
   }
-  // else if (count_player_ == 2) {
-  //    std::cout << "x_prev_door " << x_prev_door << std::endl;
-  //    std::cout << "y_prev_door " << y_prev_door << std::endl;
-  //    std::cout << "x_next_door " << x_next_door << std::endl;
-  //    std::cout << "y_next_door " << y_next_door << std::endl;
-  //    CreatePlayer(x, y);
-  //    count_player_++;
-  //  }
 
   if (!used_counter_) {
     CreateScoreBoard(73, 2);
@@ -112,11 +105,3 @@ void CreatingEntitySystem::OnUpdate() {}
 CreatingEntitySystem::CreatingEntitySystem(EntityManager* entity_manager, SystemManager* const system_manager,
                                            Context* ctx, EntityManager* creater)
     : ISystem(entity_manager, system_manager), ctx_(ctx), creater_(creater) {}
-
-// CreatingEntitySystem::CreatingEntitySystem(EntityManager* entityManager, SystemManager* systemManager,
-//                                           EntityManager* const pManager, SystemManager* pManager1,
-//                                           EntityManager* pManager2, Context* const pContext)
-//    : ISystem(entityManager, systemManager) {}
-// CreatingEntitySystem::CreatingEntitySystem(EntityManager* const pManager, SystemManager* pManager1,
-//                                           EntityManager* pManager2, Context* const pContext,
-//                                           SystemManager* systemManager) {}

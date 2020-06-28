@@ -1,6 +1,5 @@
 #pragma once
 
-//  #include <game/components/obstacle_component.h>
 #include <game/components/player_control_component.h>
 #include <game/components/price_component.h>
 #include <game/components/stamp_remove_component.h>
@@ -35,7 +34,6 @@ class EntityManager {
     return entities_.at(id).get();
   }
   void DeleteEntity(size_t id) {
-    // std::cout << entities_.size() << std::endl;
     entities_.erase(id);
   }
   EntityManager* DeleteAll() {
@@ -53,9 +51,10 @@ class EntityManager {
   /**
    * Completely removes all marked to delete entities with associated components.
    */
+  // TODO(Nariman): закончить реализацию, может быть нужно для примера в функции Check(аккуратно с ObstacleComponent)
   void SweepDeleted() {
     for (auto& entity : toDelete) {
-      //  entity.RemoveAllComponents(); TODO(Nariman):
+      // entity.RemoveAllComponents();
       entities_.erase(entity);
     }
     toDelete.clear();
@@ -67,22 +66,10 @@ class EntityManager {
         entity.second->Delete<TextureComponent>();
         entity.second->Delete<TransformComponent>();
         entity.second->Delete<ColliderComponent>();
-        // entity.second->Delete<ObstacleComponent>();
         DeleteEntity(entity.first);
       }
     }
   }
-
-  void Have() {
-    for (auto& entity : entities_) {
-      if (entity.second->Contains<StampRemoveComponent>()) {
-        //
-      }
-    }
-  }
-
-  // Entity* Get(std::string name) const {
-  // }
 
   /**
    * Необходим для того, чтобы не выставлять на показ

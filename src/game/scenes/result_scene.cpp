@@ -9,10 +9,6 @@ ResultScene::ResultScene(Context* ctx, const Controls& controls) : IScene(ctx), 
 
 void ResultScene::OnCreate() {}
 
-static bool Filter2(const Entity& entity) {
-  return entity.Contains<ColliderComponent>() && entity.Contains<ScoreBoardComponent>();
-}
-
 void ResultScene::OnRender() {
   terminal_clear();
   terminal_print(
@@ -39,7 +35,4 @@ void ResultScene::OnRender() {
   }
   terminal_refresh();
 }
-void ResultScene::OnExit() {
-  //  ctx_->score_steps = 0;
-  //  ctx_->score_coins = 0;
-}
+void ResultScene::OnExit() {}

@@ -19,7 +19,6 @@ static bool Filter2(const Entity& entity) {
   return entity.Contains<ColliderComponent>() && entity.Contains<ScoreBoardComponent>();
 }
 
-// TODO(Nariman): Добавить у entity метод Have, чтобы проверит наличие компоненты, и изменить функцию IsCoin
 bool PickUpCoinSystem::IsCoin(const Entity& entity) {
   auto cc = entity.Get<ColliderComponent>();
   for (const auto& collision : cc->GetCollisions()) {
@@ -28,35 +27,25 @@ bool PickUpCoinSystem::IsCoin(const Entity& entity) {
     }
   }
 }
-
-auto GivePrice(Entity* entity) {
+// TODO(Nariman) : хорошо ли что возращает auto по-другому нужно будет добавлять Template(template<typename Component> и
+// возращать Component*
+auto GetPrice(Entity* entity) {
   auto cc = entity->Get<ColliderComponent>();
   for (auto& collision : cc->GetCollisions()) {
     if (collision->Get<PriceComponent>()) {
-      auto a = collision->Get<PriceComponent>();
+      auto price_entity = collision->Get<PriceComponent>();
       collision->Add<StampRemoveComponent>();
-      return a;
+      return price_entity;
     }
   }
 }
 
 void PickUpCoinSystem::AddCoin(Entity* entity_1, Entity* entity_2) {
-  auto pc = GivePrice(entity_1);
+  auto pc = GetPrice(entity_1);
   auto sb = entity_2->Get<ScoreBoardComponent>();
-  int x = entity_1->Get<TransformComponent>()->pos_.x;
-  int y = entity_1->Get<TransformComponent>()->pos_.y;
-  // if (GetSystemManagerPtr()->Have<GenerateRandomMapSystem>()) {
-  std::cout << "coin change " << ctx_->scene_ << std::endl;
-  std::cout << "pick "
-            << "x " << x << " y " << y << std::endl;
-  ctx_->levels_.find(ctx_->level_number)->second[x + y * ctx_->width_] = 1;
-  std::cout << ctx_->levels_.find(ctx_->level_number)->second[x + y * ctx_->width_] << std::endl;
-  //  }
-  // else if (GetSystemManagerPtr()->Have<ReadingFileLevelsSystem>()) {
-  // ctx_->fornidden_cages_[x][y] = -1;
-  std::cout << "coin remember " << ctx_->scene_ << std::endl;
-  //  }
-
+  ctx_->levels_.find(ctx_->level_number)
+      ->second[entity_1->Get<TransformComponent>()->pos_.x +
+               entity_1->Get<TransformComponent>()->pos_.y * ctx_->width_] = 1;
   sb->score_coins_ += pc->price_;
   ctx_->score_coins += pc->price_;
 }
