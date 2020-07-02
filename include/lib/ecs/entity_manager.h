@@ -1,10 +1,18 @@
 #pragma once
 
+#include <game/components/player_control_component.h>
+#include <game/components/price_component.h>
+#include <game/components/stamp_remove_component.h>
+#include <game/components/texture_component.h>
+#include <game/components/transform_component.h>
+
 #include <iostream>
 #include <map>
 #include <memory>
-#include "lib/ecs/entity.h"
 
+#include "../../game/components/collider_component.h"
+#include "lib/ecs/entity.h"
+#include "set"
 /**
  * Непосредственно класс, отвечающий за все сущности.
  * В его обязанности входит:
@@ -15,6 +23,7 @@
 class EntityManager {
  private:
   std::map<size_t, std::unique_ptr<Entity>> entities_;
+  std::set<size_t> toDelete;
 
   size_t last_entity_id = 1;  // start from 1 to use 0 as a special entity ID
 
@@ -24,9 +33,8 @@ class EntityManager {
     entities_.emplace(id, std::make_unique<Entity>(id));
     return entities_.at(id).get();
   }
-  EntityManager* DeleteEntity(size_t id) {
+  void DeleteEntity(size_t id) {
     entities_.erase(id);
-    return this;
   }
   EntityManager* DeleteAll() {
     entities_.clear();
@@ -40,8 +48,28 @@ class EntityManager {
     return entities_.at(id).get();
   }
 
-  // Entity* Get(std::string name) const {
-  // }
+  /**
+   * Completely removes all marked to delete entities with associated components.
+   */
+  // TODO(Nariman): закончить реализацию, может быть нужно для примера в функции Check(аккуратно с ObstacleComponent)
+  void SweepDeleted() {
+    for (auto& entity : toDelete) {
+      // entity.RemoveAllComponents();
+      entities_.erase(entity);
+    }
+    toDelete.clear();
+  }
+
+  void Check() {
+    for (auto& entity : entities_) {
+      if (entity.second->Contains<StampRemoveComponent>()) {
+        entity.second->Delete<TextureComponent>();
+        entity.second->Delete<TransformComponent>();
+        entity.second->Delete<ColliderComponent>();
+        DeleteEntity(entity.first);
+      }
+    }
+  }
 
   /**
    * Необходим для того, чтобы не выставлять на показ
@@ -74,6 +102,7 @@ class EntityManager {
     bool operator==(const Iterator& rhs) {
       return iterator_ == rhs.iterator_;
     }
+
     bool operator!=(const Iterator& rhs) {
       return iterator_ != rhs.iterator_;
     }

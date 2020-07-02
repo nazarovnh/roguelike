@@ -2,28 +2,37 @@
 
 #include <BearLibTerminal.h>
 
-ResultScene::ResultScene(Context* ctx, const Controls& controls, const CoinsManager& cm)
-    : IScene(ctx), controls_(controls), cm_(cm) {}
+#include "game/components/scoreboard_component.h"
+#include "lib/ecs/entity_manager.h"
+
+ResultScene::ResultScene(Context* ctx, const Controls& controls) : IScene(ctx), controls_(controls) {}
 
 void ResultScene::OnCreate() {}
 
 void ResultScene::OnRender() {
-//  char str_step[20];
-//  char str_coins[20];
-//  snprintf(str_step, sizeof(str_step), "%d", controls_.step_x);
-//  snprintf(str_coins, sizeof(str_coins), "%d", cm_.bag_coins_);
-//
-//  terminal_print(30, 5, "Your result:\n");
-//  terminal_put(30, 7, '@');
-//  terminal_print(32, 7, str_step);
-//  terminal_put(30, 8, '$');
-//  terminal_print(32, 8, str_coins);
-//  terminal_print(30, 10, "Press Enter to continue");
+  terminal_clear();
+  terminal_print(
+      1, 1, "Congratulations you have passed the level. Your Score is:   \n\n\n\n\n\nPress Enter to go to next level");
+  terminal_print(1, 3, "steps:");
+  terminal_print(1, 5, "coins:");
+  char str_1[20];
+  char str_2[20];
 
-  //  controls_.step_x = 0;
-//  //  cm_.bag_coins_ = 0;
-  //  if (controls_.IsPressed()) {
-  //    ctx_->scene_ = "game_scene_lv2";  // переходим на другую сцену
-  //  }
+  snprintf(str_1, sizeof(str_1), "%d", ctx_->score_steps);
+  snprintf(str_2, sizeof(str_2), "%d", ctx_->score_coins);
+  terminal_print(8, 3, str_1);
+  terminal_print(8, 5, str_2);
+  if (controls_.IsPressed(TK_ENTER)) {
+    ctx_->level_number++;
+    if (ctx_->prev_scene_ == "game_lv1") {
+      ctx_->scene_ = "game_lv2";
+    } else if (ctx_->prev_scene_ == "game_lv2") {
+      ctx_->scene_ = "game_lv3";
+    } else if (ctx_->prev_scene_ == "game_lv3") {
+      ctx_->scene_ = "title";
+    }
+    ctx_->prev_scene_ = "result_scene";
+  }
+  terminal_refresh();
 }
 void ResultScene::OnExit() {}

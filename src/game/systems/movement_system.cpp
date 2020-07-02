@@ -19,18 +19,17 @@ void MovementSystem::OnUpdateEntity(Entity* entity) const {
   if (controls_.IsPressed(pcc->left_button_)) {
     tc->pos_.x -= mc->step_.x;
   } else if (controls_.IsPressed(pcc->right_button_)) {
-    tc->pos_.x += mc->step_.x;;
+    tc->pos_.x += mc->step_.x;
   } else if (controls_.IsPressed(pcc->up_button_)) {
-    tc->pos_.y -= mc->step_.y;;
+    tc->pos_.y -= mc->step_.y;
   } else if (controls_.IsPressed(pcc->down_button_)) {
-    tc->pos_.y += mc->step_.y;;
+    tc->pos_.y += mc->step_.y;
   }
 }
 
 void MovementSystem::OnUpdate() {
   for (auto& entity : GetEntityManager()) {
     if (Filter(entity)) {
-      // std::cout << "BUM" << std::endl;
       OnUpdateEntity(&entity);
     }
   }

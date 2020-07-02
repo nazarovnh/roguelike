@@ -1,15 +1,15 @@
 #pragma once
 
-#include "game/coins-manager.h"
+#include <lib/ecs/engine.h>
+
 #include "game/controls.h"
 #include "lib/scenes/i_scene.h"
 
 class ResultScene : public IScene {
   const Controls& controls_;
-  const CoinsManager& cm_;
 
  public:
-  ResultScene(Context* ctx, const Controls& controls, const CoinsManager& cm);
+  ResultScene(Context* ctx, const Controls& controls);
 
   void OnCreate() override;
   void OnRender() override;

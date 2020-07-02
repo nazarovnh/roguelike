@@ -1,6 +1,7 @@
 #pragma once
 
 #include <lib/ecs/component.h>
+#include <lib/ecs/entity.h>
 #include <lib/math/vec2.h>
 
 #include <set>
@@ -31,6 +32,10 @@ class ColliderComponent : public IComponent {
 
   void Collide(Entity* entity) {
     collisions_.insert(entity);
+  }
+
+  bool HaveCollision(Entity* entity) {
+    return collisions_.count(entity) != 0;
   }
 
   void Clear() {
